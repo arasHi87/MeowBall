@@ -1,0 +1,76 @@
+package main.base;
+
+import java.awt.*;
+import main.Content;
+
+public class Element {
+    protected int dx, x, y, ox, oy; // accelerate and position and original point
+    protected int width, height; // width and height of image
+    protected int direction; // Pika direct left(-1), right(1), up(2), down(-2) or stop(0)
+    protected float currentSpeed; // the speed when jump up and current speed
+    protected Image image; // default image
+    protected boolean ifLeft, ifRight; // set for true if player click the keyboard
+
+    public Element() {
+        this.width = Content.ELEMENT_SIZE;
+        this.height = Content.ELEMENT_SIZE;
+    }
+
+    public Element(int x, int y) {
+        this.width = Content.ELEMENT_SIZE;
+        this.height = Content.ELEMENT_SIZE;
+        this.x = this.ox = x;
+        this.y = this.oy = y;
+        this.ifLeft = this.ifRight = false;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public void moveLeft() {
+        dx = -3;
+        direction = -1;
+    }
+
+    public void moveRight() {
+        dx = 3;
+        direction = 1;
+    }
+
+    public void move() {
+        /**
+         * move function, when uses keyboard to control, must be override in child
+         */
+    }
+
+    public void restart() {
+        /**
+         * restart game, re init, must override in child
+         */
+    }
+}
