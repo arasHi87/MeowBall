@@ -3,7 +3,6 @@ package main.base;
 import javax.swing.ImageIcon;
 import main.Content;
 import java.awt.Image;
-import java.nio.file.Path;
 
 public abstract class Utils {
     /**
