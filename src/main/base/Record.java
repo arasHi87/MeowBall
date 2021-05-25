@@ -2,7 +2,6 @@ package main.base;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.JLabel;
@@ -34,12 +33,10 @@ public class Record extends JPanel {
 
         countLabel1.setPreferredSize(new Dimension(120, 80));
         countLabel1.setBounds(500, 100, 80, 80);
-        countLabel1.setFont(new Font("Times-Roman", Font.BOLD | Font.ITALIC, 60));
         countLabel1.setForeground(Color.RED);
 
         countLabel2.setPreferredSize(new Dimension(120, 80));
         countLabel2.setBounds(700, 100, 80, 80);
-        countLabel2.setFont(new Font("Times-Roman", Font.BOLD | Font.ITALIC, 60));
         countLabel2.setForeground(Color.RED);
 
         this.add(countLabel1);

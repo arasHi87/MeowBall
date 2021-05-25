@@ -1,7 +1,10 @@
 package main;
 
 import main.panel.*;
-import javax.swing.JFrame;
+import javax.swing.*;
+import javax.swing.plaf.FontUIResource;
+import java.awt.*;
+import java.util.Enumeration;
 
 public class Main extends JFrame {
     Main() {
@@ -14,7 +17,18 @@ public class Main extends JFrame {
         this.setVisible(true);
     }
 
+    public static void initGobalFont(Font font) {
+        FontUIResource fontResource = new FontUIResource(font);
+        for (Enumeration<Object> keys = UIManager.getDefaults().keys(); keys.hasMoreElements();) {
+            Object key = keys.nextElement();
+            Object value = UIManager.get(key);
+            if (value instanceof FontUIResource)
+                UIManager.put(key, fontResource);
+        }
+    }
+
     public static void main(String[] args) {
+        initGobalFont(new Font("Times-Roman", Font.BOLD | Font.ITALIC, 60));
         new Main();
     }
 }
