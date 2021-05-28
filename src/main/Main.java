@@ -4,17 +4,43 @@ import main.panel.*;
 import javax.swing.*;
 import javax.swing.plaf.FontUIResource;
 import java.awt.*;
+import java.awt.event.*;
 import java.util.Enumeration;
 
 public class Main extends JFrame {
+    private Start start;
+    private Game game;
+
     Main() {
-        this.add(new Game());
+        // basic setting
         this.setTitle("喵喵打排球");
         this.setSize(Content.FRAME_WIDTH, Content.FRAME_HEIGHT);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setLayout(null);
         this.setResizable(false); // fixed window
+
+        // panel setting
+        this.start = new Start();
+
+        // start panel setting
+        this.start.play.addActionListener(new startListener());
+        this.start.add(this.start.play);
+
+        // main frame panel setting
+        this.add(this.start);
         this.setVisible(true);
+    }
+
+    public class startListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            if (e.getSource() == start.play) {
+                // press start button, change to game panel
+                add(game = new Game());
+
+                start.setVisible(false);
+                game.setVisible(true);
+            }
+        }
     }
 
     public static void initGobalFont(Font font) {
