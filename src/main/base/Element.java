@@ -6,7 +6,6 @@ import main.Content;
 public class Element {
     protected int dx, x, y, ox, oy; // accelerate and position and original point
     protected int width, height; // width and height of image
-    protected int direction; // Pika direct left(-1), right(1), up(2), down(-2) or stop(0)
     protected float currentSpeed; // the speed when jump up and current speed
     protected Image image; // default image
     protected boolean ifLeft, ifRight; // set for true if player click the keyboard
@@ -54,12 +53,10 @@ public class Element {
 
     public void moveLeft() {
         dx = -3;
-        direction = -1;
     }
 
     public void moveRight() {
         dx = 3;
-        direction = 1;
     }
 
     public void move() {

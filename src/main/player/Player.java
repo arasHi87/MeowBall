@@ -2,7 +2,6 @@ package main.player;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
-
 import main.Content;
 import main.base.*;
 
@@ -17,7 +16,6 @@ public class Player extends Element {
         super(x, y);
         this.ifJump = false;
         this.jumpSpeed = -10;
-        this.direction = 0;
         this.ifStart = true;
     }
 
