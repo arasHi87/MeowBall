@@ -13,8 +13,7 @@ import main.base.*;
 import main.base.Record;
 import main.player.*;
 
-public class Game extends JPanel {
-    private Image backgroundImage;
+public class Game extends Base {
     private Player1 player1;
     private Player2 player2;
     private Ball ball;
@@ -29,15 +28,9 @@ public class Game extends JPanel {
     private int roundWin; // if 1 than 1P win, 2 than 2p win
 
     public Game() {
-        this.backgroundImage = Utils.getImage("background.jpg");
+        this.backgroundImage = Utils.getImage("background/game.jpg");
         this.addKeyListener(new tempAdapter());
         this.addMouseListener(new testAdapter());
-        this.setSize(Content.FRAME_WIDTH, Content.FRAME_HEIGHT);
-        this.setFocusable(true); // set for controlling the component on the game board
-        this.setBackground(Color.BLACK);
-        this.setDoubleBuffered(true); // memory associated
-        this.setLayout(null);
-        this.setOpaque(false);
 
         this.player1 = new Player1();
         this.player2 = new Player2();
@@ -64,6 +57,7 @@ public class Game extends JPanel {
         roundWin = 0;
     }
 
+    @Override
     public void paint(Graphics g) {
         g.drawImage(this.backgroundImage, 0, 0, 1200, 700, this); // draw background
         super.paint(g);
@@ -98,6 +92,7 @@ public class Game extends JPanel {
 
     private class tempAdapter extends KeyAdapter { // 按鍵的listener
         public void keyPressed(KeyEvent e) {
+            System.out.println(e);
             player1.keyPressed(e);
             player2.keyPressed(e);
         }
