@@ -1,7 +1,5 @@
 package main.panel;
 
-import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
 import main.Content;
 import main.base.Utils;
