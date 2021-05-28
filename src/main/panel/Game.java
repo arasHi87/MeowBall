@@ -1,13 +1,9 @@
 package main.panel;
 
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 import java.awt.geom.Line2D;
 import java.util.*;
-import javax.swing.JPanel;
 import main.Content;
 import main.base.*;
 import main.base.Record;
@@ -90,7 +86,8 @@ public class Game extends Base {
         }
     }
 
-    private class tempAdapter extends KeyAdapter { // 按鍵的listener
+    private class tempAdapter extends KeyAdapter {
+        // keyborad listener
         public void keyPressed(KeyEvent e) {
             System.out.println(e);
             player1.keyPressed(e);
@@ -103,7 +100,8 @@ public class Game extends Base {
         }
     }
 
-    class ScheduleTask extends TimerTask { // 整個遊戲的運行
+    class ScheduleTask extends TimerTask {
+        // matain all game running
         public void run() {
             player1.ifStart = true;
             player2.ifStart = true;
@@ -122,7 +120,7 @@ public class Game extends Base {
         }
     }
 
-    class RestartTask extends TimerTask { // 球落在右邊，1P贏
+    class RestartTask extends TimerTask {
         public void run() {
             if (roundWin == 1) {
                 ball.restart(2);
@@ -150,27 +148,34 @@ public class Game extends Base {
         Rectangle r2 = ball.getBounds();
         Rectangle r4 = player2.getBounds();
 
-        if (r1.intersects(r2)) { // pika1撞球
+        if (r1.intersects(r2)) {
+            // player1 hit the ball
             float d = ((float) ball.getX() + (float) ball.getWidth() / 2f)
                     - ((float) player1.getX() + (float) player1.getWidth() / 2f);
             ball.hit(d, 1);
-        } else if (r4.intersects(r2)) { // pika2撞球
+        } else if (r4.intersects(r2)) {
+            // player2 hit the ball
             float d = ((float) ball.getX() + (float) ball.getWidth() / 2f)
                     - ((float) player2.getX() + (float) player2.getWidth() / 2f);
             ball.hit(d, 2);
         }
-        if (r2.intersectsLine(upStickLine)) { // 撞到柱子上面
+        if (r2.intersectsLine(upStickLine)) {
+            // hit the up stick
             ball.hitUpStick();
-        } else if (r2.intersectsLine(rightStickLine) || r2.intersectsLine(leftStickLine)) { // 撞到柱子左邊和右邊
+        } else if (r2.intersectsLine(rightStickLine) || r2.intersectsLine(leftStickLine)) {
+            // hit the left/right side stick
             ball.hitStick();
         }
 
-        if (r2.intersectsLine(leftLine) || r2.intersectsLine(rightLine)) { // 球落地
-            if (r2.intersectsLine(leftLine)) { // 球落在左邊，2P贏
+        if (r2.intersectsLine(leftLine) || r2.intersectsLine(rightLine)) {
+            // ball hit the ground
+            if (r2.intersectsLine(leftLine)) {
+                // ball hit left ground, 2P win
                 System.out.println("Player2 win");
                 record.plusCount2();
                 roundWin = 2;
-            } else if (r2.intersectsLine(rightLine)) { // 球落在右邊，1P贏
+            } else if (r2.intersectsLine(rightLine)) {
+                // ball hit right ground, 1P win
                 System.out.println("Player1 win");
                 record.plusCount1();
                 roundWin = 1;
