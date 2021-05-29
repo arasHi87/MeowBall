@@ -12,8 +12,7 @@ public class Ball extends Element {
     private int angle; // angle of the ball
 
     public Ball() {
-        super((int) Content.FRAME_WIDTH / 4 - Content.ELEMENT_SIZE / 2, 200);
-        this.image = Utils.getImage("ball.png");
+        super((int) Content.FRAME_WIDTH / 4 - Content.ELEMENT_SIZE / 2, 200, "ball.png");
         this.width = Content.ELEMENT_SIZE / 2; // initialize the x position
         this.height = Content.ELEMENT_SIZE / 2; // initialize the y position
         this.hitSpeedY = -10;
