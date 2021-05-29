@@ -10,8 +10,8 @@ import main.base.Record;
 import main.player.*;
 
 public class Game extends Base {
-    private Player1 player1;
-    private Player2 player2;
+    private Player player1;
+    private Player player2;
     private Ball ball;
     private Stick stick;
     private Timer timer; // control the game cycle
@@ -23,13 +23,16 @@ public class Game extends Base {
     private Line2D.Double leftLine, rightLine, leftStickLine, rightStickLine, upStickLine;
     private int roundWin; // if 1 than 1P win, 2 than 2p win
 
-    public Game() {
+    public Game(String player1Image, String player2Image) {
+        // basic setting
         this.backgroundImage = Utils.getImage("background/game.jpg");
         this.addKeyListener(new tempAdapter());
         this.addMouseListener(new testAdapter());
 
-        this.player1 = new Player1();
-        this.player2 = new Player2();
+        this.player1 = new Player((int) Content.FRAME_WIDTH / 4 - Content.ELEMENT_SIZE / 2, Content.GROUND_Y, "player1",
+                player1Image);
+        this.player2 = new Player((int) Content.FRAME_WIDTH / 4 * 3 - Content.ELEMENT_SIZE / 2, Content.GROUND_Y,
+                "player2", player2Image);
         this.ball = new Ball();
         this.stick = new Stick();
         this.record = new Record();
@@ -47,8 +50,8 @@ public class Game extends Base {
 
         timer = new Timer();
         timer2 = new Timer();
-        timer.scheduleAtFixedRate(new ScheduleTask(), 1000, 12);
-        timer2.scheduleAtFixedRate(new BallTask(), 1000, 100);
+        timer.scheduleAtFixedRate(new ScheduleTask(), 500, 12);
+        timer2.scheduleAtFixedRate(new BallTask(), 500, 100);
 
         roundWin = 0;
     }
