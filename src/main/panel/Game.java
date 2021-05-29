@@ -30,6 +30,7 @@ public class Game extends Base {
 
         this.player1 = new Player1();
         this.player2 = new Player2();
+        
         this.ball = new Ball();
         this.stick = new Stick();
         this.record = new Record();
@@ -52,7 +53,7 @@ public class Game extends Base {
 
         roundWin = 0;
     }
-
+    
     @Override
     public void paint(Graphics g) {
         g.drawImage(this.backgroundImage, 0, 0, 1200, 700, this); // draw background
@@ -103,8 +104,10 @@ public class Game extends Base {
     class ScheduleTask extends TimerTask {
         // matain all game running
         public void run() {
+            //System.out.println("spped_x="+ball.GetBallSpeedX()+", speed_y="+ball.GetBallSpeedY());
             player1.ifStart = true;
             player2.ifStart = true;
+            player1.MoveByBall(ball.getX(),ball.getY(), ball.GetBallSpeedX(), ball.GetBallSpeedY());
             player1.move();
             player2.move();
             ball.move();

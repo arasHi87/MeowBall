@@ -11,12 +11,55 @@ public class Player extends Element {
     protected int up, left, right; // direction for player
     protected int leftBorder, rightBorder;
     public boolean ifStart;
-
+    
     Player(int x, int y) {
         super(x, y);
         this.ifJump = false;
         this.jumpSpeed = -10;
         this.ifStart = true;
+    }
+
+    public void MoveByBall(int ball_x, int ball_y, float speed_x, float speed_y){
+        float slope,predict_x;
+        int hit_x = this.x;
+        
+        if (ifStart == true) 
+        {
+
+            if(speed_x==0)
+                slope = 9999;
+            else 
+                slope = speed_y/speed_x;
+            
+            if(speed_y>0 && ball_x<550){
+                predict_x = (580-ball_y+slope*ball_x)/slope;
+                if(speed_x>0)
+                    hit_x = this.x+140;
+                else
+                    hit_x = this.x+75;
+            }
+            else{
+                predict_x = 225;
+            }
+                
+            
+            if(hit_x - predict_x > 10){
+                ifLeft = true;
+                ifRight = false;
+            }
+            else if(hit_x - predict_x < -15){
+                ifRight = true;
+                ifLeft = false;
+            }
+            else{
+                ifLeft = false;
+                ifRight = false;
+                dx = 0;
+            }
+
+            if(ball_x>500 && Math.abs(predict_x-hit_x)<10)
+                dx = 0;        
+        }
     }
 
     public void move() {
@@ -61,7 +104,6 @@ public class Player extends Element {
 
     public void keyReleased(KeyEvent e) {
         int key = e.getKeyCode();
-
         if (key == this.left) {
             ifLeft = false;
             dx = 0;

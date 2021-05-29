@@ -36,6 +36,14 @@ public class Ball extends Element {
         angle += 45;
     }
 
+    public float GetBallSpeedX(){
+        return currentSpeedX;
+    }
+
+    public float GetBallSpeedY(){
+        return currentSpeedY;
+    }
+
     public void hitGround() {
         currentSpeedY = hitSpeedY - 3.5f; // y position
     }
@@ -52,7 +60,6 @@ public class Ball extends Element {
     @Override
     public void move() { // ball moves
         currentSpeedY += 0.2; // handle y speed, add gravity
-
         y += currentSpeedY;
         x += currentSpeedX;
         if (y >= Content.GROUND_Y + Content.ELEMENT_SIZE) {
@@ -61,10 +68,10 @@ public class Ball extends Element {
             y = 0;
             currentSpeedY = 3;
         }
-
+        
         if (x < 0 || x >= Content.FRAME_WIDTH - 150) {
             // handle x speed
-            // if hit side, then reverse diraction
+            // if hit side, then reverse direction
             currentSpeedX *= -1;
         }
     }
@@ -72,7 +79,6 @@ public class Ball extends Element {
     // ball hit something
     public void hit(float d, int player) {
         currentSpeedY = hitSpeedY - 1; // handle y speed
-
         if (d != 0) {
             hitSpeedX = d * 0.07f; // x position
             if (d < 0)
@@ -99,4 +105,6 @@ public class Ball extends Element {
         currentSpeedX = 0;
         currentSpeedY = 0;
     }
+
+    
 }
