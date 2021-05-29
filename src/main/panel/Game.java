@@ -27,7 +27,6 @@ public class Game extends Base {
         // basic setting
         this.backgroundImage = Utils.getImage("background/game.jpg");
         this.addKeyListener(new tempAdapter());
-        this.addMouseListener(new testAdapter());
 
         this.player1 = new Player((int) Content.FRAME_WIDTH / 4 - Content.ELEMENT_SIZE / 2, Content.GROUND_Y, "player1",
                 player1Image);
@@ -81,18 +80,9 @@ public class Game extends Base {
         g.dispose();
     }
 
-    private class testAdapter extends MouseAdapter {
-        public void mousePressed(MouseEvent e) {
-            System.out.print(e.getX());
-            System.out.print(' ');
-            System.out.println(e.getY());
-        }
-    }
-
     private class tempAdapter extends KeyAdapter {
         // keyborad listener
         public void keyPressed(KeyEvent e) {
-            System.out.println(e);
             player1.keyPressed(e);
             player2.keyPressed(e);
         }
@@ -174,12 +164,10 @@ public class Game extends Base {
             // ball hit the ground
             if (r2.intersectsLine(leftLine)) {
                 // ball hit left ground, 2P win
-                System.out.println("Player2 win");
                 record.plusCount2();
                 roundWin = 2;
             } else if (r2.intersectsLine(rightLine)) {
                 // ball hit right ground, 1P win
-                System.out.println("Player1 win");
                 record.plusCount1();
                 roundWin = 1;
             }
