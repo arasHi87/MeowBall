@@ -12,11 +12,34 @@ public class Player extends Element {
     protected int leftBorder, rightBorder;
     public boolean ifStart;
 
-    Player(int x, int y) {
-        super(x, y);
+    /**
+     * 
+     * @param x
+     * @param y
+     * @param player    judge if player1 or player2
+     * @param imageName image use to paint
+     */
+    public Player(int x, int y, String player, String imageName) {
+        super(x, y, imageName);
         this.ifJump = false;
         this.jumpSpeed = -10;
         this.ifStart = true;
+
+        // different setting for both player
+        if (player.equals("player1")) {
+            this.up = KeyEvent.VK_W;
+            this.left = KeyEvent.VK_A;
+            this.right = KeyEvent.VK_D;
+            this.leftBorder = 0;
+            this.rightBorder = Content.STICK_X - 100;
+        } else {
+            this.up = KeyEvent.VK_UP;
+            this.left = KeyEvent.VK_LEFT;
+            this.right = KeyEvent.VK_RIGHT;
+            this.leftBorder = Content.STICK_X + 20;
+            this.rightBorder = Content.FRAME_WIDTH - 150;
+        }
+
     }
 
     public void move() {
