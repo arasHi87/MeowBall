@@ -23,10 +23,10 @@ public class Base extends JPanel {
     public String getBackgroundImage(String folderName) {
         ArrayList<String> results = new ArrayList<String>();
         File[] files = new File(Utils.getImagePath(folderName)).listFiles();
-        System.out.println(Utils.getImagePath(folderName));
 
         for (File file : files) {
-            if (file.isFile()) {
+            String fileName = file.getName();
+            if (file.isFile() && (fileName.endsWith(".jpg") || fileName.endsWith(".png"))) {
                 results.add(file.getName());
             }
         }
