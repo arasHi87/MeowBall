@@ -24,6 +24,7 @@ public class Character extends Base {
         this.playerChoose = new int[] { 0, 4 };
         this.playerChooseLabel = new JLabel[2];
         this.characterLabel = new JLabel[10];
+        this.backgroundImage = Utils.getImage(this.getBackgroundImage("background/start"));
 
         this.setFocusable(true);
         this.addKeyListener(new meowAdapter());
