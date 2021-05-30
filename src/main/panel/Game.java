@@ -143,14 +143,37 @@ public class Game extends Base {
 
         if (r1.intersects(r2)) {
             // player1 hit the ball
-            float d = ((float) ball.getX() + (float) ball.getWidth() / 2f)
+            if(player1.ifSmash==true){  //check if smash
+                float d = ((float) ball.getX() + (float) ball.getWidth() / 2f)
                     - ((float) player1.getX() + (float) player1.getWidth() / 2f);
-            ball.hit(d, 1);
+                if(player1.ifJump == true&& d>0){
+                    ball.hit(d, true);
+                }else{
+                    ball.hit(d, false);
+                }
+                
+            }else{
+                float d = ((float) ball.getX() + (float) ball.getWidth() / 2f)
+                    - ((float) player1.getX() + (float) player1.getWidth() / 2f);
+
+                ball.hit(d, false);
+            }
         } else if (r4.intersects(r2)) {
-            // player2 hit the ball
-            float d = ((float) ball.getX() + (float) ball.getWidth() / 2f)
+            if(player2.ifSmash==true){  //check if smash
+                float d = ((float) ball.getX() + (float) ball.getWidth() / 2f)
                     - ((float) player2.getX() + (float) player2.getWidth() / 2f);
-            ball.hit(d, 2);
+                if(player2.ifJump == true&& d<0){
+                    ball.hit(d, true);
+                }else{
+                    ball.hit(d, false);
+                }
+                
+            }else{
+                float d = ((float) ball.getX() + (float) ball.getWidth() / 2f)
+                    - ((float) player2.getX() + (float) player2.getWidth() / 2f);
+                ball.hit(d, false);
+            }
+            System.out.println(player2.ifSmash);
         }
         if (r2.intersectsLine(upStickLine)) {
             // hit the up stick

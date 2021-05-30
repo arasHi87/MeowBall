@@ -7,8 +7,10 @@ import main.base.*;
 
 public class Player extends Element {
     protected float jumpSpeed; // the speed when jump up and current speed
-    protected boolean ifJump; // jump or not
+    public boolean ifJump; // jump or not
     protected int up, left, right; // direction for player
+    public boolean ifSmash;
+    protected int smash;      
     protected int leftBorder, rightBorder;
     public boolean ifStart;
 
@@ -30,13 +32,15 @@ public class Player extends Element {
             this.up = KeyEvent.VK_W;
             this.left = KeyEvent.VK_A;
             this.right = KeyEvent.VK_D;
+            this.smash = KeyEvent.VK_Q;
             this.leftBorder = 0;
-            this.rightBorder = Content.STICK_X - 100;
+            this.rightBorder = Content.STICK_X - 125;
         } else {
             this.up = KeyEvent.VK_UP;
             this.left = KeyEvent.VK_LEFT;
             this.right = KeyEvent.VK_RIGHT;
-            this.leftBorder = Content.STICK_X + 20;
+            this.smash = KeyEvent.VK_SHIFT;
+            this.leftBorder = Content.STICK_X + 0;
             this.rightBorder = Content.FRAME_WIDTH - 150;
         }
 
@@ -79,6 +83,10 @@ public class Player extends Element {
             if (key == this.right) {
                 ifRight = true;
             }
+
+            if (key == this.smash) {
+                ifSmash = true;
+            }
         }
     }
 
@@ -93,6 +101,10 @@ public class Player extends Element {
         if (key == this.right) {
             ifRight = false;
             dx = 0;
+        }
+
+        if (key ==this.smash){
+            ifSmash = false;
         }
     }
 

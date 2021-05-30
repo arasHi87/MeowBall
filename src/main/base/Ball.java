@@ -69,8 +69,14 @@ public class Ball extends Element {
     }
 
     // ball hit something
-    public void hit(float d, int player) {
-        currentSpeedY = hitSpeedY - 1; // handle y speed
+    public void hit(float d,boolean smash) {
+        
+        if(smash==true){
+            currentSpeedY = -hitSpeedY - 5; // smash the ball
+        }else{
+            currentSpeedY = hitSpeedY - 1; // handle y speed
+        }
+        
 
         if (d != 0) {
             hitSpeedX = d * 0.07f; // x position
