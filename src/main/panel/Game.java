@@ -6,7 +6,6 @@ import java.awt.geom.Line2D;
 import java.util.*;
 import main.Content;
 import main.base.*;
-import main.base.Record;
 import main.player.*;
 
 public class Game extends Base {
