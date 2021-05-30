@@ -1,15 +1,20 @@
 package main;
 
+import main.base.Utils;
 import main.panel.*;
+import main.panel.Character;
 import javax.swing.*;
 import javax.swing.plaf.FontUIResource;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.Enumeration;
 
 public class Main extends JFrame {
     private Start start;
     private Game game;
+    private Character character;
 
     Main() {
         // basic setting
@@ -21,24 +26,46 @@ public class Main extends JFrame {
 
         // panel setting
         this.start = new Start();
+        this.character = new Character();
 
         // start panel setting
         this.start.play.addActionListener(new startListener());
         this.start.add(this.start.play);
+        this.character.start.addActionListener(new characterListener());
+        this.character.add(this.character.start);
 
         // main frame panel setting
         this.add(this.start);
         this.setVisible(true);
     }
 
+    private void switchPanel(JPanel contentPanel, JPanel showPanel) {
+        this.remove(contentPanel);
+        contentPanel.setFocusable(false);
+
+        this.add(showPanel);
+        showPanel.requestFocus();
+
+        this.revalidate();
+        this.repaint();
+    }
+
     public class startListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == start.play) {
                 // press start button, change to game panel
-                add(game = new Game());
+                switchPanel(start, character);
+            }
+        }
+    }
 
-                start.setVisible(false);
-                game.setVisible(true);
+    public class characterListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            if (e.getSource() == character.start) {
+                String player1Image = MessageFormat.format("characters/{0}/right.png", character.playerChoose[0] + 1);
+                String player2Image = MessageFormat.format("characters/{0}/left.png", character.playerChoose[1] + 1);
+                game = new Game(player1Image, player2Image);
+                switchPanel(character, game);
             }
         }
     }
@@ -53,8 +80,8 @@ public class Main extends JFrame {
         }
     }
 
-    public static void main(String[] args) {
-        initGobalFont(new Font("Times-Roman", Font.BOLD | Font.ITALIC, 60));
+    public static void main(String[] args) throws FontFormatException, IOException {
+        initGobalFont(Utils.getFont("8bit16.ttf", 60));
         new Main();
     }
 }

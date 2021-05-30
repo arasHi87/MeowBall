@@ -15,9 +15,10 @@ public class Element {
         this.height = Content.ELEMENT_SIZE;
     }
 
-    public Element(int x, int y) {
+    public Element(int x, int y, String imageName) {
         this.width = Content.ELEMENT_SIZE;
         this.height = Content.ELEMENT_SIZE;
+        this.image = Utils.getImage(imageName);
         this.x = this.ox = x;
         this.y = this.oy = y;
         this.ifLeft = this.ifRight = false;

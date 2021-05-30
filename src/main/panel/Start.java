@@ -11,7 +11,7 @@ public class Start extends Base {
     public Start() {
         this.width = 200;
         this.height = 50;
-        this.backgroundImage = Utils.getImage("background/start.jpg");
+        this.backgroundImage = Utils.getImage(this.getBackgroundImage("background/start"));
 
         this.play = new JButton("Play");
         this.play.setBounds(Content.FRAME_WIDTH / 2 - this.width / 2, Content.FRAME_HEIGHT / 2 - this.height / 2,
