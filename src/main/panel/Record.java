@@ -1,4 +1,4 @@
-package main.base;
+package main.panel;
 
 import java.awt.Color;
 import java.awt.Dimension;
