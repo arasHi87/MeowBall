@@ -57,10 +57,10 @@ public class Player extends Element {
             if(speed_y>0 && ball_x<550){
                 predict_x = (580-ball_y+slope*ball_x)/slope;
                 if(speed_x>0){
-                    if(ball_x<410)
-                        hit_x = this.x+150;
+                    if(ball_x<400)
+                        hit_x = this.x+140;
                     else
-                        hit_x = this.x+(int)(Math.random()*40+40);
+                        hit_x = this.x+(int)(Math.random()*15+30);
                 }
                 else
                     hit_x = this.x+65;
