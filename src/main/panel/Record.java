@@ -1,23 +1,24 @@
 package main.panel;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.util.Timer;
 import java.util.TimerTask;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
+import main.Content;
 
 public class Record extends JPanel {
     private Timer timer;
     private int width, height;
     private int x, y;
-    private int count1, count2;
+    public int count1, count2;
     private JLabel countLabel1, countLabel2;
+    JLabel endLabel;
 
     public Record() {
         countLabel1 = new JLabel("0");
         countLabel2 = new JLabel("1");
-        width = 850;
+        endLabel = new JLabel("", SwingConstants.CENTER);
+        width = Content.FRAME_WIDTH;
         height = 200;
         x = 0;
         y = 0;
@@ -26,18 +27,20 @@ public class Record extends JPanel {
         timer = new Timer();
         timer.scheduleAtFixedRate(new ScheduleTask(), 0, 100);
 
-        this.setPreferredSize(new Dimension(width, height));
+        this.setSize(width, height);
         this.setLayout(null);
         this.setOpaque(false);
         this.setVisible(true);
 
-        countLabel1.setPreferredSize(new Dimension(120, 80));
-        countLabel1.setBounds(500, 100, 80, 80);
-        countLabel1.setForeground(Color.RED);
+        countLabel1.setBounds(200, 100, 80, 80);
+        countLabel1.setForeground(new Color(233, 51, 55));
 
-        countLabel2.setPreferredSize(new Dimension(120, 80));
-        countLabel2.setBounds(700, 100, 80, 80);
-        countLabel2.setForeground(Color.RED);
+        countLabel2.setBounds(Content.FRAME_WIDTH - 200, 100, 80, 80);
+        countLabel2.setForeground(new Color(80, 136, 247));
+
+        // endLabel.setPreferredSize(new Dimension(640, 80));
+        endLabel.setBounds((Content.FRAME_WIDTH - 640) / 2, 100, Content.FRAME_WIDTH / 2, 80);
+        endLabel.setForeground(new Color(0, 230, 118));
 
         this.add(countLabel1);
         this.add(countLabel2);
@@ -78,5 +81,18 @@ public class Record extends JPanel {
     public void showMessage() {
         countLabel1.setText(Integer.toString(count1));
         countLabel2.setText(Integer.toString(count2));
+    }
+
+    public void showEndMessage(String winner) {
+        endLabel.setText(winner);
+        add(endLabel);
+        revalidate();
+    }
+
+    public void restart() {
+        count1 = 0;
+        count2 = 0;
+        endLabel.setText("");
+        revalidate();
     }
 }
