@@ -27,6 +27,7 @@ public class Game extends Base {
         this.backgroundImage = Utils.getImage("background/game.jpg");
         this.addKeyListener(new tempAdapter());
 
+        // setting object
         this.player1 = new Player((int) Content.FRAME_WIDTH / 4 - Content.ELEMENT_SIZE / 2, Content.GROUND_Y, "player1",
                 player1Image);
         this.player2 = new Player((int) Content.FRAME_WIDTH / 4 * 3 - Content.ELEMENT_SIZE / 2, Content.GROUND_Y,
@@ -36,6 +37,7 @@ public class Game extends Base {
         this.record = new Record();
         this.add(record);
 
+        // setting border hit bo
         this.leftLine = new Line2D.Double(0, Content.GROUND_Y + Content.ELEMENT_SIZE, Content.STICK_X,
                 Content.GROUND_Y + Content.ELEMENT_SIZE);
         this.rightLine = new Line2D.Double(Content.STICK_X, Content.GROUND_Y + Content.ELEMENT_SIZE,
