@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.Line2D;
 import java.util.*;
+import java.util.Timer;
 import main.Content;
 import main.base.*;
 import main.player.*;
@@ -16,17 +17,17 @@ public class Game extends Base {
     private Timer timer; // control the game cycle
     private Timer timer2; // control the ball cycle
     private Timer timer3; // control the hide task
-    // private int[] leftLine, rightLine, leftStickLine, rightStickLine,
-    // upStickLine;
     private Record record;
     private Line2D.Double leftLine, rightLine, leftStickLine, rightStickLine, upStickLine;
     private int roundWin; // if 1 than 1P win, 2 than 2p win
 
     public Game(String player1Image, String player2Image) {
         // basic setting
-        this.backgroundImage = Utils.getImage("background/game.jpg");
+        this.roundWin = 0;
+        this.backgroundImage = Utils.getImage(this.getBackgroundImage("background/game"));
         this.addKeyListener(new tempAdapter());
 
+        // setting object
         this.player1 = new Player((int) Content.FRAME_WIDTH / 4 - Content.ELEMENT_SIZE / 2, Content.GROUND_Y, "player1",
                 player1Image);
         this.player2 = new Player((int) Content.FRAME_WIDTH / 4 * 3 - Content.ELEMENT_SIZE / 2, Content.GROUND_Y,
@@ -36,6 +37,7 @@ public class Game extends Base {
         this.record = new Record();
         this.add(record);
 
+        // setting border hit border
         this.leftLine = new Line2D.Double(0, Content.GROUND_Y + Content.ELEMENT_SIZE, Content.STICK_X,
                 Content.GROUND_Y + Content.ELEMENT_SIZE);
         this.rightLine = new Line2D.Double(Content.STICK_X, Content.GROUND_Y + Content.ELEMENT_SIZE,
@@ -46,12 +48,11 @@ public class Game extends Base {
                 Content.STICK_Y + 225);
         this.upStickLine = new Line2D.Double(Content.STICK_X, Content.STICK_Y, Content.STICK_X + 16, Content.STICK_Y);
 
+        // timer setting
         timer = new Timer();
         timer2 = new Timer();
         timer.scheduleAtFixedRate(new ScheduleTask(), 500, 12);
         timer2.scheduleAtFixedRate(new BallTask(), 500, 100);
-
-        roundWin = 0;
     }
     
     @Override
