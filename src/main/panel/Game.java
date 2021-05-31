@@ -5,7 +5,6 @@ import java.awt.event.*;
 import java.awt.geom.Line2D;
 import java.util.*;
 import java.util.Timer;
-import javax.swing.*;
 import main.Content;
 import main.base.*;
 import main.player.*;
