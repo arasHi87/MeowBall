@@ -5,7 +5,7 @@ import main.Content;
 import main.base.Utils;
 
 public class Start extends Base {
-    public JButton play;
+    public JButton single;
     private int width, height; // setting for button
 
     public Start() {
@@ -13,11 +13,11 @@ public class Start extends Base {
         this.height = 50;
         this.backgroundImage = Utils.getImage(this.getBackgroundImage("background/start"));
 
-        this.play = new JButton("Play");
-        this.play.setBounds(Content.FRAME_WIDTH / 2 - this.width / 2, Content.FRAME_HEIGHT / 2 - this.height / 2,
+        this.single = new JButton("Play");
+        this.single.setBounds(Content.FRAME_WIDTH / 2 - this.width / 2, Content.FRAME_HEIGHT / 2 - this.height / 2,
                 this.width, this.height);
-        this.play.setOpaque(true);
-        this.play.setBorder(null);
-        this.play.setContentAreaFilled(false);
+        this.single.setOpaque(true);
+        this.single.setBorder(null);
+        this.single.setContentAreaFilled(false);
     }
 }

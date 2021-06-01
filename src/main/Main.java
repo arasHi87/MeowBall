@@ -29,8 +29,8 @@ public class Main extends JFrame {
         this.character = new Character();
 
         // start panel setting
-        this.start.play.addActionListener(new startListener());
-        this.start.add(this.start.play);
+        this.start.single.addActionListener(new startListener());
+        this.start.add(this.start.single);
         this.character.start.addActionListener(new characterListener());
         this.character.add(this.character.start);
 
@@ -52,7 +52,7 @@ public class Main extends JFrame {
 
     public class startListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            if (e.getSource() == start.play) {
+            if (e.getSource() == start.single) {
                 // press start button, change to game panel
                 switchPanel(start, character);
             }
