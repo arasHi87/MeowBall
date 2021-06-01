@@ -6,6 +6,7 @@ import java.awt.geom.Line2D;
 import java.util.*;
 import java.util.Timer;
 import main.Content;
+import main.Main;
 import main.base.*;
 import main.player.*;
 
@@ -22,7 +23,9 @@ public class Game extends Base {
     private int roundWin; // if 1 than 1P win, 2 than 2p win
     private boolean roundOver;
 
-    public Game(String player1Image, String player2Image) {
+    public Game(Main frame, String gameMode, String player1Image, String player2Image) {
+        super(frame);
+
         // basic setting
         this.roundWin = 0;
         this.roundOver = false;
