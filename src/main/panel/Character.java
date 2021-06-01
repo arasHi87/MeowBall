@@ -15,22 +15,22 @@ public class Character extends Base {
     private JLabel[] playerChooseLabel, characterLabel; // use to showing player choose and all character
 
     public Character() {
-        this.width = 150;
-        this.height = 150;
-        this.leftBorder = 100;
-        this.upBorder = 50;
-        this.blockWidth = (Content.FRAME_WIDTH - (this.leftBorder * 2)) / 5;
-        this.start = new JButton("Start");
-        this.playerChoose = new int[] { 0, 4 };
-        this.playerChooseLabel = new JLabel[2];
-        this.characterLabel = new JLabel[10];
-        this.backgroundImage = Utils.getImage(this.getBackgroundImage("background/start"));
+        width = 150;
+        height = 150;
+        leftBorder = 100;
+        upBorder = 50;
+        blockWidth = (Content.FRAME_WIDTH - (leftBorder * 2)) / 5;
+        start = new JButton("Start");
+        playerChoose = new int[] { 0, 4 };
+        playerChooseLabel = new JLabel[2];
+        characterLabel = new JLabel[10];
+        backgroundImage = Utils.getImage(getBackgroundImage("background/start"));
 
-        this.setFocusable(true);
-        this.addKeyListener(new meowAdapter());
-        this.paintAllCharacter();
-        this.paintChooseLabel();
-        this.setButton();
+        setFocusable(true);
+        addKeyListener(new meowAdapter());
+        paintAllCharacter();
+        paintChooseLabel();
+        setButton();
     }
 
     private void paintAllCharacter() {
@@ -38,15 +38,15 @@ public class Character extends Base {
         for (int i = 1; i <= 2; i++) {
             for (int j = 1, index, x, y; j <= 5; j++) {
                 index = (i - 1) * 5 + j;
-                x = this.leftBorder + (j - 1) * this.blockWidth;
-                y = Content.FRAME_HEIGHT / 4 + this.upBorder + (i - 1) * (this.blockWidth + this.upBorder);
+                x = leftBorder + (j - 1) * blockWidth;
+                y = Content.FRAME_HEIGHT / 4 + upBorder + (i - 1) * (blockWidth + upBorder);
 
-                this.characterLabel[i - 1] = new JLabel();
-                this.characterLabel[i - 1].setIcon(Utils.getResizeImage(
-                        MessageFormat.format("characters/{0}/right.png", index), this.width, this.height));
-                this.characterLabel[i - 1].setBounds(x, y, width, height);
+                characterLabel[i - 1] = new JLabel();
+                characterLabel[i - 1].setIcon(
+                        Utils.getResizeImage(MessageFormat.format("characters/{0}/right.png", index), width, height));
+                characterLabel[i - 1].setBounds(x, y, width, height);
 
-                this.add(this.characterLabel[i - 1]);
+                add(characterLabel[i - 1]);
             }
         }
     }
@@ -54,24 +54,23 @@ public class Character extends Base {
     private void paintChooseLabel() {
         // setting choose character JLabel
         for (int i = 0, x, y; i <= 1; i++) {
-            x = (i == 0 ? this.leftBorder : Content.FRAME_WIDTH - this.leftBorder - this.blockWidth);
-            y = Content.FRAME_HEIGHT / 8 - this.height / 2;
+            x = (i == 0 ? leftBorder : Content.FRAME_WIDTH - leftBorder - blockWidth);
+            y = Content.FRAME_HEIGHT / 8 - height / 2;
 
             this.playerChooseLabel[i] = new JLabel();
-            this.playerChooseLabel[i].setIcon(
-                    Utils.getResizeImage(MessageFormat.format("characters/{0}/right.png", this.playerChoose[i] + 1),
-                            this.width, this.height));
-            this.playerChooseLabel[i].setBounds(x, y, width, height);
-            this.add(this.playerChooseLabel[i]);
+            this.playerChooseLabel[i].setIcon(Utils.getResizeImage(
+                    MessageFormat.format("characters/{0}/right.png", playerChoose[i] + 1), width, height));
+            playerChooseLabel[i].setBounds(x, y, width, height);
+            add(playerChooseLabel[i]);
         }
     }
 
     private void setButton() {
         // setting start button
-        this.start.setBounds(Content.FRAME_WIDTH / 2 - 150, Content.FRAME_HEIGHT / 8 - 100, 300, 200);
-        this.start.setOpaque(true);
-        this.start.setBorder(null);
-        this.start.setContentAreaFilled(false);
+        start.setBounds(Content.FRAME_WIDTH / 2 - 150, Content.FRAME_HEIGHT / 8 - 100, 300, 200);
+        start.setOpaque(true);
+        start.setBorder(null);
+        start.setContentAreaFilled(false);
         // this.add(this.start);
     }
 
