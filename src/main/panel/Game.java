@@ -20,6 +20,7 @@ public class Game extends Base {
     private Record record;
     private Line2D.Double leftLine, rightLine, leftStickLine, rightStickLine, upStickLine;
     private int roundWin; // if 1 than 1P win, 2 than 2p win
+    private boolean ifBot = false;
 
     public Game(String player1Image, String player2Image) {
         // basic setting
@@ -28,10 +29,11 @@ public class Game extends Base {
         this.addKeyListener(new tempAdapter());
 
         // setting object
+        ifBot = true;
         this.player1 = new Player((int) Content.FRAME_WIDTH / 4 - Content.ELEMENT_SIZE / 2, Content.GROUND_Y, "player1",
-                player1Image);
+                player1Image, ifBot);
         this.player2 = new Player((int) Content.FRAME_WIDTH / 4 * 3 - Content.ELEMENT_SIZE / 2, Content.GROUND_Y,
-                "player2", player2Image);
+                "player2", player2Image, false);
         this.ball = new Ball();
         this.stick = new Stick();
         this.record = new Record();
@@ -96,10 +98,10 @@ public class Game extends Base {
     class ScheduleTask extends TimerTask {
         // matain all game running
         public void run() {
-            //System.out.println("spped_x="+ball.GetBallSpeedX()+", speed_y="+ball.GetBallSpeedY());
             player1.ifStart = true;
             player2.ifStart = true;
-            player1.MoveByBall(ball.getX(),ball.getY(), ball.GetBallSpeedX(), ball.GetBallSpeedY());
+            if (ifBot)
+                player1.moveByBall(ball.getX(), ball.getY(), ball.GetBallSpeedX(), ball.GetBallSpeedY());
             player1.move();
             player2.move();
             ball.move();

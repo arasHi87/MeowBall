@@ -19,7 +19,7 @@ public class Player extends Element {
      * @param player    judge if player1 or player2
      * @param imageName image use to paint
      */
-    public Player(int x, int y, String player, String imageName) {
+    public Player(int x, int y, String player, String imageName, boolean ifBot) {
         super(x, y, imageName);
         this.ifJump = false;
         this.jumpSpeed = -10;
@@ -27,9 +27,12 @@ public class Player extends Element {
 
         // different setting for both player
         if (player.equals("player1")) {
-            this.up = KeyEvent.VK_W;
-            this.left = KeyEvent.VK_A;
-            this.right = KeyEvent.VK_D;
+            // make KeyEvent unable when playing with the bot
+            if (!ifBot) { 
+                this.up = KeyEvent.VK_W;
+                this.left = KeyEvent.VK_A;
+                this.right = KeyEvent.VK_D;
+            }
             this.leftBorder = 0;
             this.rightBorder = Content.STICK_X - 100;
         } else {
@@ -42,49 +45,44 @@ public class Player extends Element {
 
     }
 
-    public void MoveByBall(int ball_x, int ball_y, float speed_x, float speed_y){
-        float slope,predict_x;
-        int hit_x = this.x;
+    public void moveByBall(int ball_x, int ball_y, float speed_x, float speed_y){
+        float slope, predict_x;
+        int hit_x = this.x; 
         
-        if (ifStart == true) 
-        {
+        if (ifStart == true) {
 
-            if(speed_x==0)
+            if(speed_x == 0)
                 slope = 9999;
             else 
                 slope = speed_y/speed_x;
             
-            if(speed_y>0 && ball_x<650){
-                predict_x = (580-ball_y+slope*ball_x)/slope;
-                if(speed_x>0){
-                    if(ball_x<400)
-                        hit_x = this.x+130;
+            //if ball is in player2's area and the ball is dropping to player1
+            if (speed_y > 0 && ball_x < 650) { 
+                predict_x = (580 - ball_y + slope * ball_x) / slope;
+                if (speed_x > 0) { 
+                    if(ball_x < 400)
+                        hit_x = this.x + 130;
                     else
-                        hit_x = this.x+(int)(Math.random()*35+30);
-                }
-                else
-                    hit_x = this.x+65;
-            }
-            else{
+                        hit_x = this.x + (int)(Math.random() * 35 + 30);
+                } else
+                    hit_x = this.x + 65;
+            } else
                 predict_x = 225;
-            }
-                
             
-            if(hit_x - predict_x > 10){
+
+            if (hit_x - predict_x > 10) { 
                 ifLeft = true;
                 ifRight = false;
-            }
-            else if(hit_x - predict_x < -15){
+            } else if (hit_x - predict_x < -15) {
                 ifRight = true;
                 ifLeft = false;
-            }
-            else{
+            } else {
                 ifLeft = false;
                 ifRight = false;
                 dx = 0;
             }
 
-            if(ball_x>500 && Math.abs(predict_x-hit_x)<15)
+            if(ball_x > 500 && Math.abs(predict_x - hit_x) < 15)
                 dx = 0;        
         }
     }
