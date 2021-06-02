@@ -194,10 +194,17 @@ public class Game extends Base {
                 // ball hit left ground, 2P win
                 record.plusCount2();
                 roundWin = 2;
+                new Sound("cheer");
             } else if (r2.intersectsLine(rightLine)) {
                 // ball hit right ground, 1P win
                 record.plusCount1();
                 roundWin = 1;
+                if(player1.ifBot()==true){
+                    new Sound("fail");
+                }else{
+                    new Sound("cheer");
+                }
+                
             }
 
             // stop player

@@ -13,6 +13,7 @@ public class Player extends Element {
     public boolean ifStart;
     protected boolean ifSmash;
     protected int smash;
+    protected boolean ifBot;
 
     /**
      * 
@@ -27,7 +28,7 @@ public class Player extends Element {
         this.jumpSpeed = -10;
         this.ifStart = true;
         this.ifSmash = false;
-
+        this.ifBot = ifBot;
         // different setting for both player
         if (player.equals("player1")) {
             // make KeyEvent unable when playing with the bot
@@ -95,6 +96,10 @@ public class Player extends Element {
 
     public boolean getSmash() {
         return ifSmash;
+    }
+
+    public boolean ifBot(){
+        return ifBot;
     }
 
     public void move() {

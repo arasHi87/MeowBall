@@ -10,7 +10,6 @@ import java.util.Enumeration;
 
 public class Main extends JFrame {
     private Start start;
-
     Main() {
         // basic setting
         this.setTitle("喵喵打排球");
@@ -25,6 +24,9 @@ public class Main extends JFrame {
         // main frame panel setting
         this.add(this.start);
         this.setVisible(true);
+        //test sound
+        new Sound("start");
+        
     }
 
     public void switchPanel(JPanel contentPanel, JPanel showPanel) {
