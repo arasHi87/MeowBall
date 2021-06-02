@@ -32,6 +32,7 @@ public class Game extends Base {
         this.roundOver = false;
         this.backgroundImage = Utils.getImage(this.getBackgroundImage("background/game"));
         this.addKeyListener(new tempAdapter());
+        this.addKeyListener(new ballAdapter());
 
         // deciding whether to use the bot
         if (gameMode.equals("single"))
@@ -105,6 +106,16 @@ public class Game extends Base {
         }
     }
 
+    private class ballAdapter extends KeyAdapter {
+        public void keyPressed(KeyEvent e) {
+            ball.keyPressed(e);
+        }
+
+        public void keyReleased(KeyEvent e) {
+            ball.keyReleased(e);
+        }
+    }
+
     class ScheduleTask extends TimerTask {
         // matain all game running
         public void run() {
@@ -162,12 +173,12 @@ public class Game extends Base {
             // player1 hit the ball
             float d = ((float) ball.getX() + (float) ball.getWidth() / 2f)
                     - ((float) player1.getX() + (float) player1.getWidth() / 2f);
-            ball.hit(d, 1);
+            ball.hit(d, 1, player1.getSmash());
         } else if (r4.intersects(r2)) {
             // player2 hit the ball
             float d = ((float) ball.getX() + (float) ball.getWidth() / 2f)
                     - ((float) player2.getX() + (float) player2.getWidth() / 2f);
-            ball.hit(d, 2);
+            ball.hit(d, 2, player2.getSmash());
         }
         if (r2.intersectsLine(upStickLine)) {
             // hit the up stick

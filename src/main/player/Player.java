@@ -11,6 +11,8 @@ public class Player extends Element {
     protected int up, left, right; // direction for player
     protected int leftBorder, rightBorder;
     public boolean ifStart;
+    protected boolean ifSmash;
+    protected int smash;
 
     /**
      * 
@@ -24,6 +26,7 @@ public class Player extends Element {
         this.ifJump = false;
         this.jumpSpeed = -10;
         this.ifStart = true;
+        this.ifSmash = false;
 
         // different setting for both player
         if (player.equals("player1")) {
@@ -33,12 +36,14 @@ public class Player extends Element {
                 this.left = KeyEvent.VK_A;
                 this.right = KeyEvent.VK_D;
             }
+            this.smash = KeyEvent.VK_Q; // smash
             this.leftBorder = 0;
             this.rightBorder = Content.STICK_X - 100;
         } else {
             this.up = KeyEvent.VK_UP;
             this.left = KeyEvent.VK_LEFT;
             this.right = KeyEvent.VK_RIGHT;
+            this.smash = KeyEvent.VK_SHIFT; // smash
             this.leftBorder = Content.STICK_X + 20;
             this.rightBorder = Content.FRAME_WIDTH - 150;
         }
@@ -83,8 +88,12 @@ public class Player extends Element {
             }
 
             if(ball_x > 500 && Math.abs(predict_x - hit_x) < 15)
-                dx = 0;        
-        }
+                dx = 0;
+        }       
+    }
+
+    public boolean getSmash() {
+        return ifSmash;
     }
 
     public void move() {
@@ -124,6 +133,10 @@ public class Player extends Element {
             if (key == this.right) {
                 ifRight = true;
             }
+
+            if (key == this.smash) { // detect smash
+                ifSmash = true;
+            }
         }
     }
 
@@ -138,6 +151,10 @@ public class Player extends Element {
             ifRight = false;
             dx = 0;
         }
+
+        if (key == this.smash) { // smash release
+            ifSmash = false;
+        }
     }
 
     public void restart() {
@@ -146,6 +163,7 @@ public class Player extends Element {
         ifJump = false;
         ifLeft = ifRight = false;
         ifStart = false;
+        ifSmash = false;
     }
 
     public Rectangle getBounds() {
