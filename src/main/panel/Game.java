@@ -122,7 +122,7 @@ public class Game extends Base {
             player1.ifStart = true;
             player2.ifStart = true;
             if (ifBot)
-                player2.moveByBall(ball.getX(), ball.getY(), ball.getBallSpeedX(), ball.getBallSpeedY(), stick.getX());
+                player2.moveByBall(ball.getX(), ball.getY(), ball.getBallSpeedX(), ball.getBallSpeedY());
             player1.move();
             player2.move();
             ball.move();

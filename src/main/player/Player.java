@@ -50,7 +50,7 @@ public class Player extends Element {
 
     }
 
-    public void moveByBall(int ball_x, int ball_y, float speed_x, float speed_y, int stick_x) {
+    public void moveByBall(int ball_x, int ball_y, float speed_x, float speed_y) {
         float slope, predict_x;
         int hit_x = this.x;
 
@@ -62,12 +62,12 @@ public class Player extends Element {
                 slope = speed_y / speed_x;
 
             // ball is in bot's area and dropping
-            if (speed_y > 0 && ball_x > (stick_x - 10)) {
+            if (speed_y > 0 && ball_x > (Content.STICK_X - 40)) {
                 predict_x = (580 - ball_y + slope * ball_x) / slope;
                 if (speed_x < 0) // rebound
                     hit_x = this.x + (int) (Math.random() * 25);
                 else
-                    hit_x = this.x - (int) (Math.random() * 25 + 10);
+                    hit_x = this.x - (int) (Math.random() * 25 + 20);
             } else
                 predict_x = 885; // bot's initial x-coordinate
 
@@ -87,7 +87,7 @@ public class Player extends Element {
              * if ball in opponent's area, let the bot move to the middle of the area of
              * itself and stay there
              */
-            if (ball_x < (stick_x - 20) && Math.abs(predict_x - hit_x) < 15)
+            if (ball_x < (Content.STICK_X - 20) && Math.abs(predict_x - hit_x) < 15)
                 dx = 0;
         }
     }
