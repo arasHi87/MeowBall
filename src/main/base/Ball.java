@@ -37,11 +37,11 @@ public class Ball extends Element {
         angle += 45;
     }
 
-    public float GetBallSpeedX(){
+    public float getBallSpeedX() {
         return currentSpeedX;
     }
 
-    public float GetBallSpeedY(){
+    public float getBallSpeedY() {
         return currentSpeedY;
     }
 
@@ -69,7 +69,7 @@ public class Ball extends Element {
             y = 0;
             currentSpeedY = 3;
         }
-        
+
         if (x < 0 || x >= Content.FRAME_WIDTH - 150) {
             // handle x speed
             // if hit side, then reverse direction
@@ -191,5 +191,4 @@ public class Ball extends Element {
         currentSpeedY = 0;
     }
 
-    
 }

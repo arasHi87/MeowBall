@@ -52,6 +52,5 @@ public class Start extends Base {
                 switchPanel(new Character(frame, "multiple"));
             }
         }
-
     }
 }
