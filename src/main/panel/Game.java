@@ -67,7 +67,7 @@ public class Game extends Base {
         timer.scheduleAtFixedRate(new ScheduleTask(), 500, 12);
         timer2.scheduleAtFixedRate(new BallTask(), 500, 100);
     }
-    
+
     @Override
     public void paint(Graphics g) {
         g.drawImage(this.backgroundImage, 0, 0, 1200, 700, this); // draw background

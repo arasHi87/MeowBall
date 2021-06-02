@@ -31,7 +31,7 @@ public class Player extends Element {
         // different setting for both player
         if (player.equals("player1")) {
             // make KeyEvent unable when playing with the bot
-            if (!ifBot) { 
+            if (!ifBot) {
                 this.up = KeyEvent.VK_W;
                 this.left = KeyEvent.VK_A;
                 this.right = KeyEvent.VK_D;
@@ -50,32 +50,31 @@ public class Player extends Element {
 
     }
 
-    public void moveByBall(int ball_x, int ball_y, float speed_x, float speed_y){
+    public void moveByBall(int ball_x, int ball_y, float speed_x, float speed_y) {
         float slope, predict_x;
-        int hit_x = this.x; 
-        
+        int hit_x = this.x;
+
         if (ifStart == true) {
 
             if (speed_x == 0)
                 slope = 9999;
-            else 
-                slope = speed_y/speed_x;
-            
-            //if ball is in player2's area and the ball is dropping to player1
-            if (speed_y > 0 && ball_x < 650) { 
+            else
+                slope = speed_y / speed_x;
+
+            // if ball is in player2's area and the ball is dropping to player1
+            if (speed_y > 0 && ball_x < 650) {
                 predict_x = (580 - ball_y + slope * ball_x) / slope;
-                if (speed_x > 0) { 
-                    if(ball_x < 400)
+                if (speed_x > 0) {
+                    if (ball_x < 400)
                         hit_x = this.x + 130;
                     else
-                        hit_x = this.x + (int)(Math.random() * 35 + 30);
+                        hit_x = this.x + (int) (Math.random() * 35 + 30);
                 } else
                     hit_x = this.x + 65;
             } else
                 predict_x = 225;
-            
 
-            if (hit_x - predict_x > 10) { 
+            if (hit_x - predict_x > 10) {
                 ifLeft = true;
                 ifRight = false;
             } else if (hit_x - predict_x < -15) {
@@ -87,9 +86,9 @@ public class Player extends Element {
                 dx = 0;
             }
 
-            if(ball_x > 500 && Math.abs(predict_x - hit_x) < 15)
+            if (ball_x > 500 && Math.abs(predict_x - hit_x) < 15)
                 dx = 0;
-        }       
+        }
     }
 
     public boolean getSmash() {
