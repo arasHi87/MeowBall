@@ -69,10 +69,12 @@ public class Player extends Element {
                         hit_x = this.x + 130;
                     else
                         hit_x = this.x + (int) (Math.random() * 35 + 30);
-                } else
+                } else {
                     hit_x = this.x + 65;
-            } else
+                }
+            } else {
                 predict_x = 225;
+            }
 
             if (hit_x - predict_x > 10) {
                 ifLeft = true;
