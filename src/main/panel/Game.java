@@ -6,6 +6,7 @@ import java.awt.geom.Line2D;
 import java.util.*;
 import java.util.Timer;
 import main.Content;
+import main.Main;
 import main.base.*;
 import main.player.*;
 
@@ -20,16 +21,25 @@ public class Game extends Base {
     private Record record;
     private Line2D.Double leftLine, rightLine, leftStickLine, rightStickLine, upStickLine;
     private int roundWin; // if 1 than 1P win, 2 than 2p win
-    private boolean ifBot = false;
+    private boolean roundOver;
+    private boolean ifBot;
 
-    public Game(String player1Image, String player2Image) {
+    public Game(Main frame, String gameMode, String player1Image, String player2Image) {
+        super(frame);
+
         // basic setting
         this.roundWin = 0;
+        this.roundOver = false;
         this.backgroundImage = Utils.getImage(this.getBackgroundImage("background/game"));
         this.addKeyListener(new tempAdapter());
 
+        // deciding whether to use the bot
+        if (gameMode.equals("single"))
+            ifBot = true;
+        else
+            ifBot = false;
+
         // setting object
-        ifBot = true;
         this.player1 = new Player((int) Content.FRAME_WIDTH / 4 - Content.ELEMENT_SIZE / 2, Content.GROUND_Y, "player1",
                 player1Image, ifBot);
         this.player2 = new Player((int) Content.FRAME_WIDTH / 4 * 3 - Content.ELEMENT_SIZE / 2, Content.GROUND_Y,
@@ -119,6 +129,9 @@ public class Game extends Base {
 
     class RestartTask extends TimerTask {
         public void run() {
+            if (roundOver) {
+                record.restart();
+            }
             if (roundWin == 1) {
                 ball.restart(2);
             } else {
@@ -175,9 +188,22 @@ public class Game extends Base {
                 record.plusCount1();
                 roundWin = 1;
             }
+
+            // stop player
             timer.cancel();
             timer3 = new Timer();
-            timer3.schedule(new HideTask(), 700, 15);
+
+            // check if game over
+            if (record.count1 >= 12 || record.count2 >= 12) {
+                // set winner
+                String winner = record.count1 >= 12 ? "player1" : "player2";
+                roundOver = true;
+
+                record.showEndMessage(winner + " win !");
+                timer3.schedule(new HideTask(), 3000, 15);
+            } else {
+                timer3.schedule(new HideTask(), 2000, 15);
+            }
 
             player1.ifStart = false;
             player2.ifStart = false;

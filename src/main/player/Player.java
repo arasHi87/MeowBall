@@ -51,7 +51,7 @@ public class Player extends Element {
         
         if (ifStart == true) {
 
-            if(speed_x == 0)
+            if (speed_x == 0)
                 slope = 9999;
             else 
                 slope = speed_y/speed_x;

@@ -1,36 +1,67 @@
 package main.panel;
 
+import java.security.SecureRandom;
 import java.awt.event.*;
 import java.text.MessageFormat;
 import javax.swing.*;
 import main.Content;
+import main.Main;
 import main.base.Utils;
 
 public class Character extends Base {
     private int width, height; // for every character block
     private int leftBorder, upBorder; // border for left side and up side
     private int blockWidth; // block width for every character block
+    private String gameMode; // mode for game, have single and multiple
     public int[] playerChoose; // player choose character for showing, 0 for player1, 1 for player2
     public JButton start; // button to start the game
     private JLabel[] playerChooseLabel, characterLabel; // use to showing player choose and all character
 
-    public Character() {
-        this.width = 150;
-        this.height = 150;
-        this.leftBorder = 100;
-        this.upBorder = 50;
-        this.blockWidth = (Content.FRAME_WIDTH - (this.leftBorder * 2)) / 5;
-        this.start = new JButton("Start");
-        this.playerChoose = new int[] { 0, 4 };
-        this.playerChooseLabel = new JLabel[2];
-        this.characterLabel = new JLabel[10];
-        this.backgroundImage = Utils.getImage(this.getBackgroundImage("background/start"));
+    public Character(Main frame, String gameMode) {
+        super(frame);
 
-        this.setFocusable(true);
-        this.addKeyListener(new meowAdapter());
-        this.paintAllCharacter();
-        this.paintChooseLabel();
-        this.setButton();
+        width = 150;
+        height = 150;
+        leftBorder = 100;
+        upBorder = 50;
+        blockWidth = (Content.FRAME_WIDTH - (leftBorder * 2)) / 5;
+        playerChoose = new int[] { 0, 4 };
+        playerChooseLabel = new JLabel[2];
+        characterLabel = new JLabel[10];
+        backgroundImage = Utils.getImage(getBackgroundImage("background/start"));
+
+        // setting game mode, and check if is single then random 2p character choose
+        if ((this.gameMode = gameMode) == "single") {
+            SecureRandom random = new SecureRandom();
+            playerChoose[1] = 1 + random.nextInt(9);
+        }
+
+        setFocusable(true);
+        addKeyListener(new meowAdapter());
+        paintAllCharacter();
+        paintChooseLabel();
+
+        // setting button
+        start = new JButton("Start");
+        start.addActionListener(new startListener());
+        start.setBounds(Content.FRAME_WIDTH / 2 - 150, Content.FRAME_HEIGHT / 8 - 100, 300, 200);
+        start.setOpaque(true);
+        start.setBorder(null);
+        start.setContentAreaFilled(false);
+
+        // add componet
+        add(start);
+        setVisible(true);
+    }
+
+    public class startListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            if (e.getSource() == start) {
+                String player1Image = MessageFormat.format("characters/{0}/right.png", playerChoose[0] + 1);
+                String player2Image = MessageFormat.format("characters/{0}/left.png", playerChoose[1] + 1);
+                switchPanel(new Game(frame, gameMode, player1Image, player2Image));
+            }
+        }
     }
 
     private void paintAllCharacter() {
@@ -38,15 +69,15 @@ public class Character extends Base {
         for (int i = 1; i <= 2; i++) {
             for (int j = 1, index, x, y; j <= 5; j++) {
                 index = (i - 1) * 5 + j;
-                x = this.leftBorder + (j - 1) * this.blockWidth;
-                y = Content.FRAME_HEIGHT / 4 + this.upBorder + (i - 1) * (this.blockWidth + this.upBorder);
+                x = leftBorder + (j - 1) * blockWidth;
+                y = Content.FRAME_HEIGHT / 4 + upBorder + (i - 1) * (blockWidth + upBorder);
 
-                this.characterLabel[i - 1] = new JLabel();
-                this.characterLabel[i - 1].setIcon(Utils.getResizeImage(
-                        MessageFormat.format("characters/{0}/right.png", index), this.width, this.height));
-                this.characterLabel[i - 1].setBounds(x, y, width, height);
+                characterLabel[i - 1] = new JLabel();
+                characterLabel[i - 1].setIcon(
+                        Utils.getResizeImage(MessageFormat.format("characters/{0}/right.png", index), width, height));
+                characterLabel[i - 1].setBounds(x, y, width, height);
 
-                this.add(this.characterLabel[i - 1]);
+                add(characterLabel[i - 1]);
             }
         }
     }
@@ -54,25 +85,15 @@ public class Character extends Base {
     private void paintChooseLabel() {
         // setting choose character JLabel
         for (int i = 0, x, y; i <= 1; i++) {
-            x = (i == 0 ? this.leftBorder : Content.FRAME_WIDTH - this.leftBorder - this.blockWidth);
-            y = Content.FRAME_HEIGHT / 8 - this.height / 2;
+            x = (i == 0 ? leftBorder : Content.FRAME_WIDTH - leftBorder - blockWidth);
+            y = Content.FRAME_HEIGHT / 8 - height / 2;
 
             this.playerChooseLabel[i] = new JLabel();
-            this.playerChooseLabel[i].setIcon(
-                    Utils.getResizeImage(MessageFormat.format("characters/{0}/right.png", this.playerChoose[i] + 1),
-                            this.width, this.height));
-            this.playerChooseLabel[i].setBounds(x, y, width, height);
-            this.add(this.playerChooseLabel[i]);
+            this.playerChooseLabel[i].setIcon(Utils.getResizeImage(
+                    MessageFormat.format("characters/{0}/right.png", playerChoose[i] + 1), width, height));
+            playerChooseLabel[i].setBounds(x, y, width, height);
+            add(playerChooseLabel[i]);
         }
-    }
-
-    private void setButton() {
-        // setting start button
-        this.start.setBounds(Content.FRAME_WIDTH / 2 - 150, Content.FRAME_HEIGHT / 8 - 100, 300, 200);
-        this.start.setOpaque(true);
-        this.start.setBorder(null);
-        this.start.setContentAreaFilled(false);
-        // this.add(this.start);
     }
 
     private class meowAdapter extends KeyAdapter {
@@ -80,6 +101,11 @@ public class Character extends Base {
         public void keyPressed(KeyEvent e) {
             int code = e.getKeyCode();
             int temp = 0;
+
+            // if game mode is single then 2p cant choose character
+            if (gameMode == "single" && (code == KeyEvent.VK_UP || code == KeyEvent.VK_DOWN || code == KeyEvent.VK_LEFT
+                    || code == KeyEvent.VK_RIGHT))
+                return;
 
             switch (code) {
                 case KeyEvent.VK_W:

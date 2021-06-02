@@ -6,18 +6,25 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import javax.swing.*;
 import main.Content;
+import main.Main;
 import main.base.Utils;
 
 public class Base extends JPanel {
+    protected Main frame;
     protected Image backgroundImage;
 
-    Base() {
+    Base(Main frame) {
         this.setSize(Content.FRAME_WIDTH, Content.FRAME_HEIGHT);
         this.setFocusable(true);
         this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);
         this.setLayout(null);
         this.setOpaque(false);
+        this.frame = frame;
+    }
+
+    public void switchPanel(JPanel showPanel) {
+        frame.switchPanel(this, showPanel);
     }
 
     public String getBackgroundImage(String folderName) {
