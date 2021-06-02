@@ -108,7 +108,6 @@ public class Game extends Base {
             ball.move();
             collision();
             repaint();
-        
         }
     }
 
@@ -154,12 +153,12 @@ public class Game extends Base {
             // player1 hit the ball
             float d = ((float) ball.getX() + (float) ball.getWidth() / 2f)
                     - ((float) player1.getX() + (float) player1.getWidth() / 2f);
-            ball.hit(d, 1,player1.ifSmash,player1.getY());
+            ball.hit(d, 1, player1.ifSmash, player1.getY());
         } else if (r4.intersects(r2)) {
             // player2 hit the ball
             float d = ((float) ball.getX() + (float) ball.getWidth() / 2f)
                     - ((float) player2.getX() + (float) player2.getWidth() / 2f);
-            ball.hit(d, 2,player2.ifSmash,player2.getY());
+            ball.hit(d, 2, player2.ifSmash, player2.getY());
         }
         if (r2.intersectsLine(upStickLine)) {
             // hit the up stick

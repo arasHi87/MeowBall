@@ -69,28 +69,26 @@ public class Ball extends Element {
     }
 
     // ball hit something
-    public void hit(float d, int player,boolean ifSmash,int y) {
-        if(player==1){
-            if(ifSmash==true&&y<500 && d>0.0f){
+    public void hit(float d, int player, boolean ifSmash, int y) {
+        if (player == 1) {
+            if (ifSmash == true && y < 500 && d > 0.0f) {
                 currentSpeedY = -hitSpeedY - 5; // smash the ball
-                //System.out.println(d);
-            }else{
+                // System.out.println(d);
+            } else {
                 currentSpeedY = hitSpeedY - 1; // handle y speed
-                //System.out.println(d);
+                // System.out.println(d);
             }
-        }else if(player==2){
-            if(ifSmash==true&&y<500 && d<0.0f){
+        } else if (player == 2) {
+            if (ifSmash == true && y < 500 && d < 0.0f) {
                 currentSpeedY = -hitSpeedY - 5; // smash the ball
-                //System.out.println(d);
-            }else{
+                // System.out.println(d);
+            } else {
                 currentSpeedY = hitSpeedY - 1; // handle y speed
-                System.out.printf("ifSmash%b\n",ifSmash);
-                System.out.printf("y%d\n",y);
-                System.out.printf("d%f\n",d);
+                System.out.printf("ifSmash%b\n", ifSmash);
+                System.out.printf("y%d\n", y);
+                System.out.printf("d%f\n", d);
             }
         }
-        
-        
 
         if (d != 0) {
             hitSpeedX = d * 0.07f; // x position

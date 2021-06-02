@@ -32,14 +32,14 @@ public class Player extends Element {
             this.up = KeyEvent.VK_W;
             this.left = KeyEvent.VK_A;
             this.right = KeyEvent.VK_D;
-            this.smash = KeyEvent.VK_Q;  //smash
+            this.smash = KeyEvent.VK_Q; // smash
             this.leftBorder = 0;
             this.rightBorder = Content.STICK_X - 100;
         } else {
             this.up = KeyEvent.VK_UP;
             this.left = KeyEvent.VK_LEFT;
             this.right = KeyEvent.VK_RIGHT;
-            this.smash = KeyEvent.VK_SHIFT;  //smash
+            this.smash = KeyEvent.VK_SHIFT; // smash
             this.leftBorder = Content.STICK_X + 20;
             this.rightBorder = Content.FRAME_WIDTH - 150;
         }
@@ -84,7 +84,7 @@ public class Player extends Element {
                 ifRight = true;
             }
 
-            if (key == this.smash) {  //detect smash
+            if (key == this.smash) { // detect smash
                 ifSmash = true;
             }
         }
@@ -103,7 +103,7 @@ public class Player extends Element {
             dx = 0;
         }
 
-        if (key ==this.smash){  //smash release
+        if (key == this.smash) { // smash release
             ifSmash = false;
         }
     }
