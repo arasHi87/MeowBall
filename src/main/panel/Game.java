@@ -31,6 +31,7 @@ public class Game extends Base {
         this.roundOver = false;
         this.backgroundImage = Utils.getImage(this.getBackgroundImage("background/game"));
         this.addKeyListener(new tempAdapter());
+        this.addKeyListener(new ballAdapter());
 
         // setting object
         this.player1 = new Player((int) Content.FRAME_WIDTH / 4 - Content.ELEMENT_SIZE / 2, Content.GROUND_Y, "player1",
@@ -98,6 +99,16 @@ public class Game extends Base {
         }
     }
 
+    private class ballAdapter extends KeyAdapter {
+        public void keyPressed(KeyEvent e) {
+            ball.keyPressed(e);
+        }
+
+        public void keyReleased(KeyEvent e) {
+            ball.keyReleased(e);
+        }
+    }
+
     class ScheduleTask extends TimerTask {
         // matain all game running
         public void run() {
@@ -153,12 +164,12 @@ public class Game extends Base {
             // player1 hit the ball
             float d = ((float) ball.getX() + (float) ball.getWidth() / 2f)
                     - ((float) player1.getX() + (float) player1.getWidth() / 2f);
-            ball.hit(d, 1, player1.ifSmash, player1.getY());
+            ball.hit(d, 1, player1.getSmash());
         } else if (r4.intersects(r2)) {
             // player2 hit the ball
             float d = ((float) ball.getX() + (float) ball.getWidth() / 2f)
                     - ((float) player2.getX() + (float) player2.getWidth() / 2f);
-            ball.hit(d, 2, player2.ifSmash, player2.getY());
+            ball.hit(d, 2, player2.getSmash());
         }
         if (r2.intersectsLine(upStickLine)) {
             // hit the up stick

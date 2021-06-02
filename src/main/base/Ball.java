@@ -2,6 +2,7 @@ package main.base;
 
 import main.Content;
 import java.awt.*;
+import java.awt.event.*;
 
 public class Ball extends Element {
     private float hitSpeedY; // when something intersects the ball, give the speed of Y direction to the ball
@@ -10,6 +11,7 @@ public class Ball extends Element {
     private float currentSpeedY; // speed of y direction the ball
     private float currentSpeedX; // speed of x direction of the ball
     private int angle; // angle of the ball
+    private boolean ifUp, ifDown; // set for true if player click the keyboard
 
     public Ball() {
         super((int) Content.FRAME_WIDTH / 4 - Content.ELEMENT_SIZE / 2, 200, "ball.png");
@@ -19,7 +21,7 @@ public class Ball extends Element {
         this.hitSpeedX = 1.1f;
         this.currentSpeedX = 0;
         this.currentSpeedY = 0;
-        this.ifLeft = ifRight = false;
+        this.ifLeft = ifRight = ifUp = ifDown = false;
     }
 
     public void setXY(int x, int y) {
@@ -69,26 +71,8 @@ public class Ball extends Element {
     }
 
     // ball hit something
-    public void hit(float d, int player, boolean ifSmash, int y) {
-        if (player == 1) {
-            if (ifSmash == true && y < 500 && d > 0.0f) {
-                currentSpeedY = -hitSpeedY - 5; // smash the ball
-                // System.out.println(d);
-            } else {
-                currentSpeedY = hitSpeedY - 1; // handle y speed
-                // System.out.println(d);
-            }
-        } else if (player == 2) {
-            if (ifSmash == true && y < 500 && d < 0.0f) {
-                currentSpeedY = -hitSpeedY - 5; // smash the ball
-                // System.out.println(d);
-            } else {
-                currentSpeedY = hitSpeedY - 1; // handle y speed
-                System.out.printf("ifSmash%b\n", ifSmash);
-                System.out.printf("y%d\n", y);
-                System.out.printf("d%f\n", d);
-            }
-        }
+    public void hit(float d, int player, boolean ifSmash) {
+        currentSpeedY = hitSpeedY - 1;
 
         if (d != 0) {
             hitSpeedX = d * 0.07f; // x position
@@ -98,6 +82,89 @@ public class Ball extends Element {
                 hitSpeedX += 1;
 
             currentSpeedX = hitSpeedX;
+        }
+
+        // basic on player2
+        if (ifSmash == true) {
+            // press left or right
+            if (ifLeft == true) {
+                currentSpeedX = -14;
+                currentSpeedY = 3;
+            } else if (ifRight == true) {
+                currentSpeedX = -12;
+                currentSpeedY = 3;
+            }
+
+            // press up or down
+            if (ifDown == true) {
+                if (ifLeft == true || ifRight == true) {
+                    if (player == 2)
+                        currentSpeedX = Math.abs(currentSpeedX + 3) * (-1);
+                    else
+                        currentSpeedX = Math.abs(currentSpeedX) * (-1);
+                } else {
+                    if (player == 2)
+                        currentSpeedX = Math.abs(currentSpeedX + 9) * (-1);
+                    else
+                        currentSpeedX = Math.abs(currentSpeedX + 1) * (-1);
+                }
+                currentSpeedY = 14;
+            } else if (ifUp == true) {
+                if (ifLeft == true || ifRight == true)
+                    currentSpeedX = Math.abs(currentSpeedX) * (-1) - 4;
+                else
+                    currentSpeedX = Math.abs(currentSpeedX) * (-1) - 3;
+                currentSpeedY = -17;
+            }
+
+            // press nothing
+            if (ifLeft == false && ifRight == false && ifUp == false && ifDown == false) {
+                currentSpeedX = -8;
+                currentSpeedY = 3;
+            }
+
+            // revers direction if is player1
+            if (player == 1) {
+                currentSpeedX *= -1;
+            }
+        }
+    }
+
+    public void keyPressed(KeyEvent e) {
+        int key = e.getKeyCode();
+
+        switch (key) {
+            case KeyEvent.VK_W:
+            case KeyEvent.VK_UP:
+                ifUp = true;
+            case KeyEvent.VK_S:
+            case KeyEvent.VK_DOWN:
+                ifDown = true;
+            case KeyEvent.VK_A:
+            case KeyEvent.VK_LEFT:
+                ifLeft = true;
+            case KeyEvent.VK_D:
+            case KeyEvent.VK_RIGHT:
+                ifRight = true;
+        }
+    }
+
+    public void keyReleased(KeyEvent e) {
+        int key = e.getKeyCode();
+
+        switch (key) {
+            case KeyEvent.VK_W:
+            case KeyEvent.VK_UP:
+                ifUp = false;
+            case KeyEvent.VK_S:
+            case KeyEvent.VK_DOWN:
+                ifDown = false;
+            case KeyEvent.VK_A:
+            case KeyEvent.VK_LEFT:
+                ifLeft = false;
+            case KeyEvent.VK_D:
+            case KeyEvent.VK_RIGHT:
+                ifRight = false;
         }
     }
 

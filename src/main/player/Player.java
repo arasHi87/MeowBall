@@ -11,7 +11,7 @@ public class Player extends Element {
     protected int up, left, right; // direction for player
     protected int leftBorder, rightBorder;
     public boolean ifStart;
-    public boolean ifSmash;
+    protected boolean ifSmash;
     protected int smash;
 
     /**
@@ -26,6 +26,7 @@ public class Player extends Element {
         this.ifJump = false;
         this.jumpSpeed = -10;
         this.ifStart = true;
+        this.ifSmash = false;
 
         // different setting for both player
         if (player.equals("player1")) {
@@ -44,6 +45,10 @@ public class Player extends Element {
             this.rightBorder = Content.FRAME_WIDTH - 150;
         }
 
+    }
+
+    public boolean getSmash() {
+        return ifSmash;
     }
 
     public void move() {
