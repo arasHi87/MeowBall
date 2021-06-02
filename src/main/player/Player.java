@@ -83,11 +83,13 @@ public class Player extends Element {
                 dx = 0;
             }
 
+
             /**
              * if ball in opponent's area, let the bot move to the middle of the area of
              * itself and stay there
              */
             if (ball_x < 620 && Math.abs(predict_x - hit_x) < 15)
+
                 dx = 0;
         }
     }
