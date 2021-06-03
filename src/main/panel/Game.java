@@ -53,7 +53,7 @@ public class Game extends Base {
         this.add(record);
         Main.startMusic.stop();
         this.gameMusic = new Sound(); // gaming background music
-        this.gameMusic.loop("game");
+        this.gameMusic.play("game", true);
         this.sound = new Sound();
 
         // setting border hit border
@@ -181,9 +181,9 @@ public class Game extends Base {
                     - ((float) player1.getX() + (float) player1.getWidth() / 2f);
             ball.hit(d, 1, player1.getSmash());
             if (player1.getSmash() == true) {
-                sound.play("smash");
+                sound.play("smash", false);
             } else {
-                sound.play("hit");
+                sound.play("hit", false);
             }
         } else if (r4.intersects(r2)) {
             // player2 hit the ball
@@ -191,9 +191,9 @@ public class Game extends Base {
                     - ((float) player2.getX() + (float) player2.getWidth() / 2f);
             ball.hit(d, 2, player2.getSmash());
             if (player2.getSmash() == true) {
-                sound.play("smash");
+                sound.play("smash", false);
             } else {
-                sound.play("hit");
+                sound.play("hit", false);
             }
         }
         if (r2.intersectsLine(upStickLine)) {
@@ -210,15 +210,15 @@ public class Game extends Base {
                 // ball hit left ground, 2P win
                 record.plusCount2();
                 roundWin = 2;
-                sound.play("cheer");
+                sound.play("cheer", false);
             } else if (r2.intersectsLine(rightLine)) {
                 // ball hit right ground, 1P win
                 record.plusCount1();
                 roundWin = 1;
                 if (player1.ifBot() == true) {
-                    sound.play("fail");
+                    sound.play("fail", false);
                 } else {
-                    sound.play("cheer");
+                    sound.play("cheer", false);
                 }
 
             }

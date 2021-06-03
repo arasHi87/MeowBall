@@ -27,8 +27,8 @@ public class Main extends JFrame {
         // main frame panel setting
         this.add(this.start);
         this.setVisible(true);
-        Main.startMusic = new Sound("select"); // the start music
-
+        Main.startMusic = new Sound(); // the start music
+        Main.startMusic.play("start", true);
     }
 
     public void switchPanel(JPanel contentPanel, JPanel showPanel) {
