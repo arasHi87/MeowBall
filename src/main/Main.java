@@ -1,5 +1,6 @@
 package main;
 
+import main.base.Sound;
 import main.base.Utils;
 import main.panel.*;
 import javax.swing.*;
@@ -10,6 +11,8 @@ import java.util.Enumeration;
 
 public class Main extends JFrame {
     private Start start;
+    public static Sound startMusic;
+
     Main() {
         // basic setting
         this.setTitle("喵喵打排球");
@@ -24,9 +27,8 @@ public class Main extends JFrame {
         // main frame panel setting
         this.add(this.start);
         this.setVisible(true);
-        //test sound
-        new Sound("start");
-        
+        Main.startMusic = new Sound("select"); // the start music
+
     }
 
     public void switchPanel(JPanel contentPanel, JPanel showPanel) {

@@ -3,7 +3,6 @@ package main.base;
 import main.Content;
 import java.awt.*;
 import java.awt.event.*;
-import main.panel.Sound;
 
 public class Ball extends Element {
     private float hitSpeedY; // when something intersects the ball, give the speed of Y direction to the ball
@@ -135,10 +134,6 @@ public class Ball extends Element {
             if (player == 1) {
                 currentSpeedX *= -1;
             }
-            new Sound("smash");
-        }
-        if(ifSmash==false){
-            new Sound("hit");
         }
     }
 

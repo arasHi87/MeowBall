@@ -98,7 +98,7 @@ public class Player extends Element {
         return ifSmash;
     }
 
-    public boolean ifBot(){
+    public boolean ifBot() {
         return ifBot;
     }
 

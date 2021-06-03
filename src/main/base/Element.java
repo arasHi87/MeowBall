@@ -24,15 +24,6 @@ public class Element {
         this.ifLeft = this.ifRight = false;
     }
 
-    public Element(int width,int height,int x, int y, String imageName) {
-        this.width = width;
-        this.height = height;
-        this.image = Utils.getImage(imageName);
-        this.x = this.ox = x;
-        this.y = this.oy = y;
-        this.ifLeft = this.ifRight = false;
-    }
-
     public void setX(int x) {
         this.x = x;
     }

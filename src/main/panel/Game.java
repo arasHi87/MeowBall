@@ -23,6 +23,8 @@ public class Game extends Base {
     private int roundWin; // if 1 than 1P win, 2 than 2p win
     private boolean roundOver;
     private boolean ifBot;
+    private Sound gameMusic;
+    private Sound sound;
 
     public Game(Main frame, String gameMode, String player1Image, String player2Image) {
         super(frame);
@@ -49,6 +51,10 @@ public class Game extends Base {
         this.stick = new Stick();
         this.record = new Record();
         this.add(record);
+        Main.startMusic.stop();
+        this.gameMusic = new Sound(); // gaming background music
+        this.gameMusic.loop("game");
+        this.sound = new Sound();
 
         // setting border hit border
         this.leftLine = new Line2D.Double(0, Content.GROUND_Y + Content.ELEMENT_SIZE, Content.STICK_X,
@@ -174,11 +180,21 @@ public class Game extends Base {
             float d = ((float) ball.getX() + (float) ball.getWidth() / 2f)
                     - ((float) player1.getX() + (float) player1.getWidth() / 2f);
             ball.hit(d, 1, player1.getSmash());
+            if (player1.getSmash() == true) {
+                sound.play("smash");
+            } else {
+                sound.play("hit");
+            }
         } else if (r4.intersects(r2)) {
             // player2 hit the ball
             float d = ((float) ball.getX() + (float) ball.getWidth() / 2f)
                     - ((float) player2.getX() + (float) player2.getWidth() / 2f);
             ball.hit(d, 2, player2.getSmash());
+            if (player2.getSmash() == true) {
+                sound.play("smash");
+            } else {
+                sound.play("hit");
+            }
         }
         if (r2.intersectsLine(upStickLine)) {
             // hit the up stick
@@ -194,17 +210,17 @@ public class Game extends Base {
                 // ball hit left ground, 2P win
                 record.plusCount2();
                 roundWin = 2;
-                new Sound("cheer");
+                sound.play("cheer");
             } else if (r2.intersectsLine(rightLine)) {
                 // ball hit right ground, 1P win
                 record.plusCount1();
                 roundWin = 1;
-                if(player1.ifBot()==true){
-                    new Sound("fail");
-                }else{
-                    new Sound("cheer");
+                if (player1.ifBot() == true) {
+                    sound.play("fail");
+                } else {
+                    sound.play("cheer");
                 }
-                
+
             }
 
             // stop player
