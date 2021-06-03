@@ -30,20 +30,20 @@ public class Player extends Element {
 
         // different setting for both player
         if (player.equals("player1")) {
-            // make KeyEvent unable when playing with the bot
-            if (!ifBot) {
-                this.up = KeyEvent.VK_W;
-                this.left = KeyEvent.VK_A;
-                this.right = KeyEvent.VK_D;
-            }
+            this.up = KeyEvent.VK_W;
+            this.left = KeyEvent.VK_A;
+            this.right = KeyEvent.VK_D;
             this.smash = KeyEvent.VK_Q; // smash
             this.leftBorder = 0;
             this.rightBorder = Content.STICK_X - 100;
         } else {
-            this.up = KeyEvent.VK_UP;
-            this.left = KeyEvent.VK_LEFT;
-            this.right = KeyEvent.VK_RIGHT;
-            this.smash = KeyEvent.VK_SHIFT; // smash
+            // make KeyEvent unable when playing with the bot
+            if (!ifBot) {
+                this.up = KeyEvent.VK_UP;
+                this.left = KeyEvent.VK_LEFT;
+                this.right = KeyEvent.VK_RIGHT;
+                this.smash = KeyEvent.VK_SHIFT; // smash
+            }
             this.leftBorder = Content.STICK_X + 20;
             this.rightBorder = Content.FRAME_WIDTH - 150;
         }
@@ -61,25 +61,20 @@ public class Player extends Element {
             else
                 slope = speed_y / speed_x;
 
-            // if ball is in player2's area and the ball is dropping to player1
-            if (speed_y > 0 && ball_x < 650) {
+            // ball is in bot's area and dropping
+            if (speed_y > 0 && ball_x > (Content.STICK_X - 40)) {
                 predict_x = (580 - ball_y + slope * ball_x) / slope;
-                if (speed_x > 0) {
-                    if (ball_x < 400)
-                        hit_x = this.x + 130;
-                    else
-                        hit_x = this.x + (int) (Math.random() * 35 + 30);
-                } else {
-                    hit_x = this.x + 65;
-                }
-            } else {
-                predict_x = 225;
-            }
+                if (speed_x < 0) // rebound
+                    hit_x = this.x + (int) (Math.random() * 25);
+                else
+                    hit_x = this.x - (int) (Math.random() * 25 + 20);
+            } else
+                predict_x = 885; // bot's initial x-coordinate
 
             if (hit_x - predict_x > 10) {
                 ifLeft = true;
                 ifRight = false;
-            } else if (hit_x - predict_x < -15) {
+            } else if (hit_x - predict_x < -10) {
                 ifRight = true;
                 ifLeft = false;
             } else {
@@ -88,7 +83,11 @@ public class Player extends Element {
                 dx = 0;
             }
 
-            if (ball_x > 500 && Math.abs(predict_x - hit_x) < 15)
+            /**
+             * if ball in opponent's area, let the bot move to the middle of the area of
+             * itself and stay there
+             */
+            if (ball_x < (Content.STICK_X - 20) && Math.abs(predict_x - hit_x) < 15)
                 dx = 0;
         }
     }

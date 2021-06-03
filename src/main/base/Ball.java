@@ -37,11 +37,11 @@ public class Ball extends Element {
         angle += 45;
     }
 
-    public float GetBallSpeedX() {
+    public float getBallSpeedX() {
         return currentSpeedX;
     }
 
-    public float GetBallSpeedY() {
+    public float getBallSpeedY() {
         return currentSpeedY;
     }
 

@@ -42,9 +42,9 @@ public class Game extends Base {
 
         // setting object
         this.player1 = new Player((int) Content.FRAME_WIDTH / 4 - Content.ELEMENT_SIZE / 2, Content.GROUND_Y, "player1",
-                player1Image, ifBot);
+                player1Image, false);
         this.player2 = new Player((int) Content.FRAME_WIDTH / 4 * 3 - Content.ELEMENT_SIZE / 2, Content.GROUND_Y,
-                "player2", player2Image, false);
+                "player2", player2Image, ifBot);
         this.ball = new Ball();
         this.stick = new Stick();
         this.record = new Record();
@@ -122,7 +122,7 @@ public class Game extends Base {
             player1.ifStart = true;
             player2.ifStart = true;
             if (ifBot)
-                player1.moveByBall(ball.getX(), ball.getY(), ball.GetBallSpeedX(), ball.GetBallSpeedY());
+                player2.moveByBall(ball.getX(), ball.getY(), ball.getBallSpeedX(), ball.getBallSpeedY());
             player1.move();
             player2.move();
             ball.move();
