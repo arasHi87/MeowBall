@@ -8,42 +8,13 @@ public class Sound {
     // Each sound effect has its own clip, loaded with its own sound file.
     private Clip clip;
 
-    private String getFileName(String soundName) {
-        String fileName = "";
-        switch (soundName) {
-            case "smash":
-                fileName = "src/main/resources/sounds/fire_sound.wav";
-                break;
-            case "cheer":
-                fileName = "src/main/resources/sounds/cheer.wav";
-                break;
-            case "hit":
-                fileName = "src/main/resources/sounds/hit.wav";
-                break;
-            case "select":
-                fileName = "src/main/resources/sounds/select.wav";
-                break;
-            case "start":
-                fileName = "src/main/resources/sounds/start.wav";
-                break;
-            case "fail":
-                fileName = "src/main/resources/sounds/fail.wav";
-                break;
-            case "game":
-                fileName = "src/main/resources/sounds/game.wav";
-                break;
-            default:
-                break;
-        }
-        return fileName;
-    }
-
     public void play(String soundName, boolean loop) {
         try {
-            File file = new File(getFileName(soundName));
+            File file = new File(Utils.getSoundPath(soundName));
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
             clip = AudioSystem.getClip();
             clip.open(audioStream);
+
             if (loop == true) {
                 clip.loop(Clip.LOOP_CONTINUOUSLY);
             } else {
