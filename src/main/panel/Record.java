@@ -32,10 +32,10 @@ public class Record extends JPanel {
         this.setOpaque(false);
         this.setVisible(true);
 
-        countLabel1.setBounds(200, 100, 80, 80);
+        countLabel1.setBounds(200, 100, 100, 80);
         countLabel1.setForeground(new Color(233, 51, 55));
 
-        countLabel2.setBounds(Content.FRAME_WIDTH - 200, 100, 80, 80);
+        countLabel2.setBounds(Content.FRAME_WIDTH - 200, 100, 100, 80);
         countLabel2.setForeground(new Color(80, 136, 247));
 
         // endLabel.setPreferredSize(new Dimension(640, 80));
