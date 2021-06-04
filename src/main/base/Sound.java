@@ -10,11 +10,6 @@ public class Sound {
     private Clip clip;
     private String fileName;
 
-    // Constructor to construct each element of the enum with its own sound file.
-
-    public Sound() {
-    }
-
     public void play(String soundName, boolean loop) {
         try {
             switch (soundName) {
