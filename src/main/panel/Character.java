@@ -112,8 +112,8 @@ public class Character extends Base {
             x = (i == 0 ? leftBorder : Content.FRAME_WIDTH - leftBorder - blockWidth);
             y = Content.FRAME_HEIGHT / 8 - height / 2;
 
-            this.playerChooseLabel[i] = new JLabel();
-            this.playerChooseLabel[i].setIcon(Utils.getResizeImage(
+            playerChooseLabel[i] = new JLabel();
+            playerChooseLabel[i].setIcon(Utils.getResizeImage(
                     MessageFormat.format("characters/{0}/right.png", playerChoose[i] + 1), width, height));
             playerChooseLabel[i].setBounds(x, y, width, height);
             add(playerChooseLabel[i]);

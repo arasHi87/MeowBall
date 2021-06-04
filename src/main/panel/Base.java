@@ -14,12 +14,12 @@ public class Base extends JPanel {
     protected Image backgroundImage;
 
     Base(Main frame) {
-        this.setSize(Content.FRAME_WIDTH, Content.FRAME_HEIGHT);
-        this.setFocusable(true);
-        this.setBackground(Color.BLACK);
-        this.setDoubleBuffered(true);
-        this.setLayout(null);
-        this.setOpaque(false);
+        setSize(Content.FRAME_WIDTH, Content.FRAME_HEIGHT);
+        setFocusable(true);
+        setBackground(Color.BLACK);
+        setDoubleBuffered(true);
+        setLayout(null);
+        setOpaque(false);
         this.frame = frame;
     }
 
@@ -43,7 +43,7 @@ public class Base extends JPanel {
     }
 
     public void paint(Graphics g) {
-        g.drawImage(this.backgroundImage, 0, 0, Content.FRAME_WIDTH, Content.FRAME_HEIGHT, this); // draw background
+        g.drawImage(backgroundImage, 0, 0, Content.FRAME_WIDTH, Content.FRAME_HEIGHT, this); // draw background
         super.paint(g);
     }
 }

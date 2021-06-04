@@ -15,13 +15,13 @@ public class Ball extends Element {
 
     public Ball() {
         super((int) Content.FRAME_WIDTH / 4 - Content.ELEMENT_SIZE / 2, 200, "ball.png");
-        this.width = Content.ELEMENT_SIZE / 2; // initialize the x position
-        this.height = Content.ELEMENT_SIZE / 2; // initialize the y position
-        this.hitSpeedY = -10;
-        this.hitSpeedX = 1.1f;
-        this.currentSpeedX = 0;
-        this.currentSpeedY = 0;
-        this.ifLeft = ifRight = ifUp = ifDown = false;
+        width = Content.ELEMENT_SIZE / 2; // initialize the x position
+        height = Content.ELEMENT_SIZE / 2; // initialize the y position
+        hitSpeedY = -10;
+        hitSpeedX = 1.1f;
+        currentSpeedX = 0;
+        currentSpeedY = 0;
+        ifLeft = ifRight = ifUp = ifDown = false;
     }
 
     public void setXY(int x, int y) {

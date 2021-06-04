@@ -27,10 +27,10 @@ public class Record extends JPanel {
         timer = new Timer();
         timer.scheduleAtFixedRate(new ScheduleTask(), 0, 100);
 
-        this.setSize(width, height);
-        this.setLayout(null);
-        this.setOpaque(false);
-        this.setVisible(true);
+        setSize(width, height);
+        setLayout(null);
+        setOpaque(false);
+        setVisible(true);
 
         countLabel1.setBounds((int) Content.FRAME_WIDTH / 4 - Content.ELEMENT_SIZE / 2 + 50, 100, 100, 80);
         countLabel1.setForeground(new Color(233, 51, 55));
@@ -42,9 +42,9 @@ public class Record extends JPanel {
         endLabel.setBounds((Content.FRAME_WIDTH - 640) / 2, 100, Content.FRAME_WIDTH / 2, 80);
         endLabel.setForeground(new Color(0, 230, 118));
 
-        this.add(countLabel1);
-        this.add(countLabel2);
-        this.validate();
+        add(countLabel1);
+        add(countLabel2);
+        validate();
     }
 
     public int getX() {

@@ -11,17 +11,17 @@ public class Element {
     protected boolean ifLeft, ifRight; // set for true if player click the keyboard
 
     public Element() {
-        this.width = Content.ELEMENT_SIZE;
-        this.height = Content.ELEMENT_SIZE;
+        width = Content.ELEMENT_SIZE;
+        height = Content.ELEMENT_SIZE;
     }
 
     public Element(int x, int y, String imageName) {
-        this.width = Content.ELEMENT_SIZE;
-        this.height = Content.ELEMENT_SIZE;
-        this.image = Utils.getImage(imageName);
-        this.x = this.ox = x;
-        this.y = this.oy = y;
-        this.ifLeft = this.ifRight = false;
+        width = Content.ELEMENT_SIZE;
+        height = Content.ELEMENT_SIZE;
+        image = Utils.getImage(imageName);
+        this.x = ox = x;
+        this.y = oy = y;
+        ifLeft = ifRight = false;
     }
 
     public void setX(int x) {

@@ -32,12 +32,12 @@ public class Game extends Base {
         super(frame);
 
         // basic setting
-        this.roundWin = 0;
-        this.roundOver = false;
-        this.backgroundImage = Utils.getImage(this.getBackgroundImage("background/game"));
-        this.paintArrow = true;
-        this.addKeyListener(new tempAdapter());
-        this.addKeyListener(new ballAdapter());
+        roundWin = 0;
+        roundOver = false;
+        backgroundImage = Utils.getImage(getBackgroundImage("background/game"));
+        paintArrow = true;
+        addKeyListener(new tempAdapter());
+        addKeyListener(new ballAdapter());
 
         // deciding whether to use the bot
         if (gameMode.equals("single"))
@@ -46,31 +46,30 @@ public class Game extends Base {
             ifBot = false;
 
         // setting object
-        this.player1 = new Player((int) Content.FRAME_WIDTH / 4 - Content.ELEMENT_SIZE / 2, Content.GROUND_Y, "player1",
+        player1 = new Player((int) Content.FRAME_WIDTH / 4 - Content.ELEMENT_SIZE / 2, Content.GROUND_Y, "player1",
                 player1Image, false);
-        this.player2 = new Player((int) Content.FRAME_WIDTH / 4 * 3 - Content.ELEMENT_SIZE / 2, Content.GROUND_Y,
-                "player2", player2Image, ifBot);
-        this.arrow1 = new Arrow(this.player1.getX(), this.player1.getY() - Content.ELEMENT_SIZE, "p1.png");
-        this.arrow2 = new Arrow(this.player2.getX(), this.player2.getY() - Content.ELEMENT_SIZE, "p2.png");
-        this.ball = new Ball();
-        this.stick = new Stick();
-        this.record = new Record();
-        this.add(record);
+        player2 = new Player((int) Content.FRAME_WIDTH / 4 * 3 - Content.ELEMENT_SIZE / 2, Content.GROUND_Y, "player2",
+                player2Image, ifBot);
+        arrow1 = new Arrow(player1.getX(), player1.getY() - Content.ELEMENT_SIZE, "p1.png");
+        arrow2 = new Arrow(player2.getX(), player2.getY() - Content.ELEMENT_SIZE, "p2.png");
+        ball = new Ball();
+        stick = new Stick();
+        record = new Record();
+        add(record);
         Main.startMusic.stop();
-        this.gameMusic = new Sound(); // gaming background music
-        this.gameMusic.play("game", true);
-        this.sound = new Sound();
+        gameMusic = new Sound(); // gaming background music
+        gameMusic.play("game", true);
+        sound = new Sound();
 
         // setting border hit border
-        this.leftLine = new Line2D.Double(0, Content.GROUND_Y + Content.ELEMENT_SIZE, Content.STICK_X,
+        leftLine = new Line2D.Double(0, Content.GROUND_Y + Content.ELEMENT_SIZE, Content.STICK_X,
                 Content.GROUND_Y + Content.ELEMENT_SIZE);
-        this.rightLine = new Line2D.Double(Content.STICK_X, Content.GROUND_Y + Content.ELEMENT_SIZE,
-                Content.FRAME_WIDTH, Content.GROUND_Y + Content.ELEMENT_SIZE);
-        this.leftStickLine = new Line2D.Double(Content.STICK_X, Content.STICK_Y, Content.STICK_X,
+        rightLine = new Line2D.Double(Content.STICK_X, Content.GROUND_Y + Content.ELEMENT_SIZE, Content.FRAME_WIDTH,
+                Content.GROUND_Y + Content.ELEMENT_SIZE);
+        leftStickLine = new Line2D.Double(Content.STICK_X, Content.STICK_Y, Content.STICK_X, Content.STICK_Y + 225);
+        rightStickLine = new Line2D.Double(Content.STICK_X + 17, Content.STICK_Y, Content.STICK_X + 17,
                 Content.STICK_Y + 225);
-        this.rightStickLine = new Line2D.Double(Content.STICK_X + 17, Content.STICK_Y, Content.STICK_X + 17,
-                Content.STICK_Y + 225);
-        this.upStickLine = new Line2D.Double(Content.STICK_X, Content.STICK_Y, Content.STICK_X + 16, Content.STICK_Y);
+        upStickLine = new Line2D.Double(Content.STICK_X, Content.STICK_Y, Content.STICK_X + 16, Content.STICK_Y);
 
         // timer setting
         timer = new Timer();
@@ -81,7 +80,7 @@ public class Game extends Base {
 
     @Override
     public void paint(Graphics g) {
-        g.drawImage(this.backgroundImage, 0, 0, 1200, 700, this); // draw background
+        g.drawImage(backgroundImage, 0, 0, 1200, 700, this); // draw background
         super.paint(g);
 
         Graphics2D g2D = (Graphics2D) g.create();

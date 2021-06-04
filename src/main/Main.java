@@ -15,31 +15,31 @@ public class Main extends JFrame {
 
     Main() {
         // basic setting
-        this.setTitle("喵喵打排球");
-        this.setSize(Content.FRAME_WIDTH, Content.FRAME_HEIGHT);
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        this.setLayout(null);
-        this.setResizable(false); // fixed window
+        setTitle("喵喵打排球");
+        setSize(Content.FRAME_WIDTH, Content.FRAME_HEIGHT);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setLayout(null);
+        setResizable(false); // fixed window
 
         // panel setting
-        this.start = new Start(this);
+        start = new Start(this);
 
         // main frame panel setting
-        this.add(this.start);
-        this.setVisible(true);
+        add(start);
+        setVisible(true);
         Main.startMusic = new Sound(); // the start music
         Main.startMusic.play("start", true);
     }
 
     public void switchPanel(JPanel contentPanel, JPanel showPanel) {
-        this.remove(contentPanel);
+        remove(contentPanel);
         contentPanel.setFocusable(false);
 
-        this.add(showPanel);
+        add(showPanel);
         showPanel.requestFocus();
 
-        this.revalidate();
-        this.repaint();
+        revalidate();
+        repaint();
     }
 
     public static void initGobalFont(Font font) {
