@@ -1,6 +1,8 @@
 package main.panel;
 
+import java.awt.FontFormatException;
 import java.awt.event.*;
+import java.io.IOException;
 import javax.swing.*;
 import main.Content;
 import main.Main;
@@ -45,11 +47,15 @@ public class Start extends Base {
 
     public class startListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            if (e.getSource() == single) {
-                // press start button, change to game panel
-                switchPanel(new Character(frame, "single"));
-            } else if (e.getSource() == multiple) {
-                switchPanel(new Character(frame, "multiple"));
+            try {
+                if (e.getSource() == single) {
+                    // press start button, change to game panel
+                    switchPanel(new Character(frame, "single"));
+                } else if (e.getSource() == multiple) {
+                    switchPanel(new Character(frame, "multiple"));
+                }
+            } catch (FontFormatException | IOException e1) {
+                e1.printStackTrace();
             }
         }
     }
