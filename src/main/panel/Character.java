@@ -1,9 +1,12 @@
 package main.panel;
 
 import java.security.SecureRandom;
+import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 import java.text.MessageFormat;
 import javax.swing.*;
+import javax.swing.border.*;
 import main.Content;
 import main.Main;
 import main.base.Utils;
@@ -15,11 +18,13 @@ public class Character extends Base {
     private String gameMode; // mode for game, have single and multiple
     public int[] playerChoose; // player choose character for showing, 0 for player1, 1 for player2
     public JButton start; // button to start the game
-    private JLabel[] playerChooseLabel, characterLabel; // use to showing player choose and all character
+    private JLabel[] playerChooseLabel, characterLabel;// use to showing player choose and all character
+    private TitledBorder[] playerChooseBorder;
 
-    public Character(Main frame, String gameMode) {
+    public Character(Main frame, String gameMode) throws FontFormatException, IOException {
         super(frame);
 
+        // basic setting
         width = 150;
         height = 150;
         leftBorder = 100;
@@ -29,6 +34,7 @@ public class Character extends Base {
         playerChooseLabel = new JLabel[2];
         characterLabel = new JLabel[10];
         backgroundImage = Utils.getImage(getBackgroundImage("background/start"));
+        playerChooseBorder = new TitledBorder[2];
 
         // setting game mode, and check if is single then random 2p character choose
         if ((this.gameMode = gameMode) == "single") {
@@ -36,8 +42,10 @@ public class Character extends Base {
             playerChoose[1] = 1 + random.nextInt(9);
         }
 
+        // other setting
         setFocusable(true);
         addKeyListener(new meowAdapter());
+        setBorder();
         paintAllCharacter();
         paintChooseLabel();
 
@@ -64,6 +72,18 @@ public class Character extends Base {
         }
     }
 
+    private void setBorder() throws FontFormatException, IOException {
+        Color colors[] = { new Color(233, 51, 55), new Color(80, 136, 247) };
+        String title[] = { "P1", "P2" };
+
+        // init player choose border
+        for (int i = 0; i <= 1; i++) {
+            playerChooseBorder[i] = new TitledBorder(new LineBorder(colors[i], 5), title[i]);
+            playerChooseBorder[i].setTitleFont(Utils.getFont("8bit16.ttf", 30));
+            playerChooseBorder[i].setTitleColor(colors[i]);
+        }
+    }
+
     private void paintAllCharacter() {
         // setting all character JLabel
         for (int i = 1; i <= 2; i++) {
@@ -72,14 +92,18 @@ public class Character extends Base {
                 x = leftBorder + (j - 1) * blockWidth;
                 y = Content.FRAME_HEIGHT / 4 + upBorder + (i - 1) * (blockWidth + upBorder);
 
-                characterLabel[i - 1] = new JLabel();
-                characterLabel[i - 1].setIcon(
-                        Utils.getResizeImage(MessageFormat.format("characters/{0}/right.png", index), width, height));
-                characterLabel[i - 1].setBounds(x, y, width, height);
+                characterLabel[index - 1] = new JLabel();
+                characterLabel[index - 1].setIcon(Utils.getResizeImage(
+                        MessageFormat.format("characters/{0}/right.png", index), width - 20, height - 20));
+                characterLabel[index - 1].setBounds(x, y, width, height);
 
-                add(characterLabel[i - 1]);
+                add(characterLabel[index - 1]);
             }
         }
+
+        // paint player choose label's border
+        characterLabel[playerChoose[0]].setBorder(playerChooseBorder[0]);
+        characterLabel[playerChoose[1]].setBorder(playerChooseBorder[1]);
     }
 
     private void paintChooseLabel() {
@@ -96,11 +120,17 @@ public class Character extends Base {
         }
     }
 
+    private void moveBorder(int contentIndex, int showIndex, TitledBorder addBorder) {
+        characterLabel[contentIndex].setBorder(null);
+        characterLabel[showIndex].setBorder(addBorder);
+    }
+
     private class meowAdapter extends KeyAdapter {
         // keyborad listener
         public void keyPressed(KeyEvent e) {
             int code = e.getKeyCode();
             int temp = 0;
+            int originChoose[] = new int[] { playerChoose[0], playerChoose[1] };
 
             // if game mode is single then 2p cant choose character
             if (gameMode == "single" && (code == KeyEvent.VK_UP || code == KeyEvent.VK_DOWN || code == KeyEvent.VK_LEFT
@@ -138,10 +168,19 @@ public class Character extends Base {
                     playerChoose[1] = (playerChoose[1] + 1) % 5 + temp;
                     break;
             }
-            playerChooseLabel[0].setIcon(Utils.getResizeImage(
-                    MessageFormat.format("characters/{0}/right.png", playerChoose[0] + 1), width, height));
-            playerChooseLabel[1].setIcon(Utils.getResizeImage(
-                    MessageFormat.format("characters/{0}/right.png", playerChoose[1] + 1), width, height));
+
+            if (playerChoose[0] == playerChoose[1]) {
+                // 2 player can't choose same character, reverse the operator
+                playerChoose = originChoose;
+            } else {
+                for (int i = 0; i <= 1; i++) {
+                    playerChooseLabel[i].setIcon(Utils.getResizeImage(
+                            MessageFormat.format("characters/{0}/right.png", playerChoose[i] + 1), width, height));
+                    moveBorder(originChoose[i], playerChoose[i], playerChooseBorder[i]);
+                }
+            }
+
+            revalidate();
             repaint();
         }
     }
