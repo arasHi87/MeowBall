@@ -39,6 +39,10 @@ public abstract class Utils {
         return Content.RESOURCE_PATH + "font/" + fontName;
     }
 
+    public static String getSoundPath(String soundName) {
+        return Content.RESOURCE_PATH + "sounds/" + soundName + ".wav";
+    }
+
     public static Font getFont(String fontName, int fontSize) throws FontFormatException, IOException {
         Font font = null;
         font = Font.createFont(Font.TRUETYPE_FONT, new File(Utils.getFontPath("8bit16.ttf")));
