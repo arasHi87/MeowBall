@@ -25,6 +25,8 @@ public class Game extends Base {
     private boolean ifBot;
     private Sound gameMusic;
     private Sound sound;
+    private Arrow arrow1, arrow2;
+    private boolean paintArrow;
 
     public Game(Main frame, String gameMode, String player1Image, String player2Image) {
         super(frame);
@@ -33,6 +35,7 @@ public class Game extends Base {
         this.roundWin = 0;
         this.roundOver = false;
         this.backgroundImage = Utils.getImage(this.getBackgroundImage("background/game"));
+        this.paintArrow = true;
         this.addKeyListener(new tempAdapter());
         this.addKeyListener(new ballAdapter());
 
@@ -47,6 +50,8 @@ public class Game extends Base {
                 player1Image, false);
         this.player2 = new Player((int) Content.FRAME_WIDTH / 4 * 3 - Content.ELEMENT_SIZE / 2, Content.GROUND_Y,
                 "player2", player2Image, ifBot);
+        this.arrow1 = new Arrow(this.player1.getX(), this.player1.getY() - Content.ELEMENT_SIZE, "p1.png");
+        this.arrow2 = new Arrow(this.player2.getX(), this.player2.getY() - Content.ELEMENT_SIZE, "p2.png");
         this.ball = new Ball();
         this.stick = new Stick();
         this.record = new Record();
@@ -70,8 +75,8 @@ public class Game extends Base {
         // timer setting
         timer = new Timer();
         timer2 = new Timer();
-        timer.scheduleAtFixedRate(new ScheduleTask(), 500, 12);
-        timer2.scheduleAtFixedRate(new BallTask(), 500, 100);
+        timer.scheduleAtFixedRate(new ScheduleTask(), 1000, 12);
+        timer2.scheduleAtFixedRate(new BallTask(), 1000, 100);
     }
 
     @Override
@@ -86,6 +91,12 @@ public class Game extends Base {
                 this);
         g2D.drawImage(player2.getImage(), player2.getX(), player2.getY(), Content.ELEMENT_SIZE, Content.ELEMENT_SIZE,
                 this);
+        if (paintArrow) {
+            g2D.drawImage(arrow1.getImage(), arrow1.getX(), arrow1.getY(), Content.ELEMENT_SIZE, Content.ELEMENT_SIZE,
+                    this);
+            g2D.drawImage(arrow2.getImage(), arrow2.getX(), arrow2.getY(), Content.ELEMENT_SIZE, Content.ELEMENT_SIZE,
+                    this);
+        }
 
         // draw object
         g2D.drawImage(stick.getImage(), stick.getX(), stick.getY(), 17, 225, this);
@@ -125,6 +136,7 @@ public class Game extends Base {
     class ScheduleTask extends TimerTask {
         // matain all game running
         public void run() {
+            paintArrow = false;
             player1.ifStart = true;
             player2.ifStart = true;
             if (ifBot)
