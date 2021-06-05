@@ -1,5 +1,6 @@
 package main.panel;
 
+import java.awt.Color;
 import java.awt.FontFormatException;
 import java.awt.event.*;
 import java.io.IOException;
@@ -34,6 +35,7 @@ public class Start extends Base {
         multiple.setOpaque(true);
         multiple.setBorder(null);
         multiple.setContentAreaFilled(false);
+        multiple.setForeground(new Color(255, 255, 255));
 
         // add action Listener
         startListener listener = new startListener();
