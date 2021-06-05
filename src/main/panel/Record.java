@@ -19,7 +19,7 @@ public class Record extends JPanel {
         countLabel2 = new JLabel("1");
         endLabel = new JLabel("", SwingConstants.CENTER);
         width = Content.FRAME_WIDTH;
-        height = 200;
+        height = 500;
         x = 0;
         y = 0;
         count1 = 0;
@@ -33,13 +33,13 @@ public class Record extends JPanel {
         setVisible(true);
 
         countLabel1.setBounds((int) Content.FRAME_WIDTH / 4 - Content.ELEMENT_SIZE / 2 + 50, 100, 100, 80);
-        countLabel1.setForeground(new Color(233, 51, 55));
+        countLabel1.setForeground(new Color(0, 0, 0));
 
         countLabel2.setBounds((int) Content.FRAME_WIDTH / 4 * 3 - Content.ELEMENT_SIZE / 2 + 50, 100, 100, 80);
-        countLabel2.setForeground(new Color(80, 136, 247));
+        countLabel2.setForeground(new Color(255, 255, 255));
 
         // endLabel.setPreferredSize(new Dimension(640, 80));
-        endLabel.setBounds((Content.FRAME_WIDTH - 640) / 2, 100, Content.FRAME_WIDTH / 2, 80);
+        endLabel.setBounds((Content.FRAME_WIDTH - 640) / 2, 100, Content.FRAME_WIDTH / 2, 400);
         endLabel.setForeground(new Color(0, 230, 118));
 
         add(countLabel1);
@@ -84,6 +84,11 @@ public class Record extends JPanel {
     }
 
     public void showEndMessage(String winner) {
+        if (winner.equals("player1"))
+            endLabel.setForeground(new Color(0, 0, 0));
+        else
+            endLabel.setForeground(new Color(255, 255, 255));
+
         endLabel.setText(winner);
         add(endLabel);
         revalidate();
