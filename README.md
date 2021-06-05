@@ -4,11 +4,11 @@
 ![image](src/main/resources/images/cover.png)
 
 ## Character
-Provide
-
-## Game rule
 Provide 12 character choices
 ![image](src/main/resources/images/characters.png)
+
+## Game rule
+The player who scores 12 points first wins
 
 ## Game control
 * Player 1
